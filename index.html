@@ -1,307 +1,570 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>王滋涵 | 图形渲染 / 引擎开发 / XR / CV & AI 作品集</title>
   <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜图形渲染 / 引擎开发 / XR / CV & AI ｜UE5 BRDF、OpenGL 引擎、VR 项目" />
   <style>
-    :root{
-      --bg:#0b0d12; --card:#121623; --text:#e9ecf1; --muted:#aab2c5;
-      --line:#242b3d; --accent:#7aa2ff; --accent2:#7dffcf; --chip:#1a2236;
-      --warn:#ffd37a;
+    :root {
+      --bg: #0b0d12;
+      --card: #121623;
+      --text: #e9ecf1;
+      --muted: #aab2c5;
+      --line: #242b3d;
+      --accent: #7aa2ff;
+      --accent2: #7dffcf;
+      --chip: #1a2236;
+      --warn: #ffd37a;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
-      background:linear-gradient(180deg,#0b0d12 0%, #0b0d12 40%, #0a1324 100%);
-      color:var(--text);
-    }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:1040px; margin:0 auto; padding:28px 18px 64px}
-    .topbar{display:flex; justify-content:space-between; align-items:center; gap:12px}
-    .brand{display:flex; align-items:center; gap:10px}
-    .dot{width:10px;height:10px;border-radius:50%; background:var(--accent2); box-shadow:0 0 18px rgba(125,255,207,.45)}
-    .nav{display:flex; gap:10px; flex-wrap:wrap; font-size:14px; color:var(--muted)}
-    .nav a{padding:8px 10px; border:1px solid transparent; border-radius:10px}
-    .nav a:hover{border-color:var(--line); background:rgba(255,255,255,.03)}
 
-    .hero{
-      margin-top:18px;
-      padding:20px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(18,22,35,.72);
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(180deg, #0b0d12 0%, #0b0d12 40%, #0a1324 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 28px 18px 64px
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 18px rgba(125, 255, 207, .45)
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: var(--muted)
+    }
+
+    .nav a {
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      border-radius: 10px
+    }
+
+    .nav a:hover {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, .03)
+    }
+
+    .hero {
+      margin-top: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(18, 22, 35, .72);
       backdrop-filter: blur(10px)
     }
-    .hero h1{margin:0; font-size:30px; letter-spacing:.3px}
-    .subtitle{margin-top:8px; color:var(--muted); line-height:1.6}
-    .badges{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
-    .badge{font-size:12px; color:#dbe3ff; background:rgba(122,162,255,.12); border:1px solid rgba(122,162,255,.25);
-      padding:6px 10px; border-radius:999px}
-    .cta{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 12px; border-radius:12px;
-      border:1px solid var(--line); background:rgba(255,255,255,.03);
-      font-size:14px; color:var(--text)
-    }
-    .btn.primary{border-color:rgba(122,162,255,.5); background:rgba(122,162,255,.16)}
-    .btn:hover{transform:translateY(-1px)}
-    .small{font-size:12px; color:var(--muted)}
-    section{margin-top:26px}
-    h2{margin:0 0 12px; font-size:18px}
-    h3{margin:0 0 6px; font-size:16px}
-    h4{margin:14px 0 6px; font-size:14px}
-    .grid{display:grid; grid-template-columns:1fr; gap:14px}
-    @media(min-width:860px){ .grid{grid-template-columns:1fr 1fr} }
-    .card{
-      border:1px solid var(--line);
-      background:rgba(18,22,35,.62);
-      border-radius:16px;
-      padding:16px
-    }
-    .cardhead{display:flex; justify-content:space-between; align-items:flex-start; gap:12px}
-    .title{font-weight:700}
-    .meta{color:var(--muted); font-size:12px; margin-top:4px; line-height:1.5}
-    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
-    .chip{
-      font-size:12px; color:#cdd6ef; background:var(--chip);
-      border:1px solid rgba(255,255,255,.06);
-      padding:5px 9px; border-radius:999px
-    }
-    ul{margin:10px 0 0; padding-left:18px}
-    li{margin:6px 0; line-height:1.55}
-    .links{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
 
-    .filters{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
-    .fbtn{
-      cursor:pointer; user-select:none; font-size:12px; color:var(--muted);
-      border:1px solid var(--line); background:rgba(255,255,255,.02);
-      padding:6px 10px; border-radius:999px
+    .hero h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: .3px
     }
-    .fbtn.active{color:var(--text); border-color:rgba(122,162,255,.5); background:rgba(122,162,255,.12)}
 
-    .two{display:grid; grid-template-columns:1fr; gap:14px}
-    @media(min-width:860px){ .two{grid-template-columns:1.2fr .8fr} }
+    .subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.6
+    }
 
-    .qrimg{
-      width:150px; height:150px; border-radius:14px;
-      border:1px solid var(--line); background:#0b0d12;
-      object-fit:cover;
+    .badges {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
     }
-    .footer{
-      margin-top:30px; padding-top:18px;
-      border-top:1px solid var(--line);
-      color:var(--muted); font-size:12px
+
+    .badge {
+      font-size: 12px;
+      color: #dbe3ff;
+      background: rgba(122, 162, 255, .12);
+      border: 1px solid rgba(122, 162, 255, .25);
+      padding: 6px 10px;
+      border-radius: 999px
     }
-    .note{
-      margin-top:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,211,122,.25);
-      background:rgba(255,211,122,.08);
-      color:#ffe9c2;
-      font-size:12px;
-      line-height:1.6;
+
+    .cta {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
     }
-    .mono{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .03);
+      font-size: 14px;
+      color: var(--text)
+    }
+
+    .btn.primary {
+      border-color: rgba(122, 162, 255, .5);
+      background: rgba(122, 162, 255, .16)
+    }
+
+    .btn:hover {
+      transform: translateY(-1px)
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    section {
+      margin-top: 26px
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px
+    }
+
+    h3 {
+      margin: 0 0 6px;
+      font-size: 16px
+    }
+
+    h4 {
+      margin: 14px 0 6px;
+      font-size: 14px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px
+    }
+
+    @media(min-width:860px) {
+      .grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(18, 22, 35, .62);
+      border-radius: 16px;
+      padding: 16px
+    }
+
+    .cardhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px
+    }
+
+    .title {
+      font-weight: 700
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.5
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .chip {
+      font-size: 12px;
+      color: #cdd6ef;
+      background: var(--chip);
+      border: 1px solid rgba(255, 255, 255, .06);
+      padding: 5px 9px;
+      border-radius: 999px
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 18px
+    }
+
+    li {
+      margin: 6px 0;
+      line-height: 1.55
+    }
+
+    .links {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px
+    }
+
+    .fbtn {
+      cursor: pointer;
+      user-select: none;
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .02);
+      padding: 6px 10px;
+      border-radius: 999px
+    }
+
+    .fbtn.active {
+      color: var(--text);
+      border-color: rgba(122, 162, 255, .5);
+      background: rgba(122, 162, 255, .12)
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px
+    }
+
+    @media(min-width:860px) {
+      .two {
+        grid-template-columns: 1.2fr .8fr
+      }
+    }
+
+    .qrimg {
+      width: 150px;
+      height: 150px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #0b0d12;
+      object-fit: cover;
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 211, 122, .25);
+      background: rgba(255, 211, 122, .08);
+      color: #ffe9c2;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* Project Gallery Styles */
+    .project-gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      /* Space for scrollbar */
+      margin-top: 14px;
+      scrollbar-width: thin;
+      /* Firefox */
+      scrollbar-color: var(--line) transparent;
+    }
+
+    .project-gallery::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .project-gallery::-webkit-scrollbar-thumb {
+      background-color: var(--line);
+      border-radius: 3px;
+    }
+
+    .project-img {
+      height: 120px;
+      width: auto;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: zoom-in;
+      transition: transform 0.2s;
+    }
+
+    .project-img:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-  <!-- Topbar -->
-  <div class="topbar">
-    <div class="brand">
-      <div class="dot"></div>
-      <div>
-        <div style="font-weight:700">王滋涵 · Portfolio</div>
-        <div class="small">图形渲染 / 引擎开发 / XR / CV & AI </div>
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="dot"></div>
+        <div>
+          <div style="font-weight:700">王滋涵 · Portfolio</div>
+          <div class="small">图形渲染 / 引擎开发 / XR / CV & AI </div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#projects">项目</a>
+        <a href="#experience">经历</a>
+        <a href="#resume">简历</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>王滋涵（Zihan Wang）</h1>
+      <div class="subtitle">
+        RIT 计算机科学硕士在读｜厦门大学本科｜网易 VR / 阿里 Unity 实习｜MAGIC Spell Studios <br />
+        方向覆盖：实时渲染与引擎（C++/UE5/Unity/OpenGL/Vulkan）、XR 交互，以及 CV/AI/ML 在 3D 与 VR 场景中的应用落地
+        求职方向：引擎开发 / 图形渲染 / 游戏开发 / XR 工程师 / 计算机视觉（CV）/ AI / 机器学习（ML）
+      </div>
+
+      <div class="badges">
+        <span class="badge">C++ / C#</span>
+        <span class="badge">Unreal Engine 5 / Unity</span>
+        <span class="badge">OpenGL / Vulkan / HLSL</span>
+        <span class="badge">OpenXR / Meta SDK</span>
+        <span class="badge">PyTorch / OpenCV</span>
+        <span class="badge">Computer Vision</span>
+        <span class="badge">Machine Learning</span>
+
+      </div>
+
+      <div class="cta">
+        <a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noopener">下载简历 PDF</a>
+        <a class="btn" href="https://github.com/ZihanWG" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="mailto:zihanwang7@outlook.com">邮箱联系</a>
+      </div>
+
+      <div class="note">
+        <b>快速浏览：</b>先看「代表项目」→ 点进 GitHub README（实现细节）→ 需要可下载简历 PDF。<br />
+        <b>定位：</b>用渲染/引擎能力构建 XR 体验，用 CV/AI/ML 提升 3D 系统智能与表现（风格迁移/追踪/虚拟人等）。
       </div>
     </div>
-    <nav class="nav">
-      <a href="#projects">项目</a>
-      <a href="#experience">经历</a>
-      <a href="#resume">简历</a>
-      <a href="#contact">联系</a>
-    </nav>
-  </div>
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>王滋涵（Zihan Wang）</h1>
-    <div class="subtitle">
-      RIT 计算机科学硕士在读｜厦门大学本科｜网易 VR / 阿里 Unity 实习｜MAGIC Spell Studios（Unreal VR）<br/>
-      方向覆盖：实时渲染与引擎（C++/UE5/OpenGL）、XR 交互，以及 CV/AI/ML 在 3D 与 VR 场景中的应用落地
-      求职方向：引擎开发 / 图形渲染 / 游戏开发 / XR 工程师 / 计算机视觉（CV）/ AI / 机器学习（ML）
-    </div>
-
-    <div class="badges">
-      <span class="badge">C++ / C#</span>
-      <span class="badge">Unreal Engine 5 / Unity</span>
-      <span class="badge">OpenGL / Vulkan / HLSL</span>
-      <span class="badge">OpenXR / Meta SDK</span>
-      <span class="badge">PyTorch / OpenCV</span>
-      <span class="badge">Computer Vision</span>
-      <span class="badge">Machine Learning</span>
-
-    </div>
-
-    <div class="cta">
-      <a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noopener">下载简历 PDF</a>
-      <a class="btn" href="https://github.com/ZihanWG" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="mailto:zihanwang7@outlook.com">邮箱联系</a>
-    </div>
-
-    <div class="note">
-      <b>快速浏览：</b>先看「代表项目」→ 点进 GitHub README（实现细节）→ 需要可下载简历 PDF。<br/>
-     <b>定位：</b>用渲染/引擎能力构建 XR 体验，用 CV/AI/ML 提升 3D 系统智能与表现（风格迁移/追踪/虚拟人等）。
-    </div>
-  </div>
 
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>代表项目</h2>
+    <!-- Projects -->
+    <section id="projects">
+      <h2>代表项目</h2>
 
-    <div class="filters">
-      <div class="fbtn active" data-filter="all">全部</div>
-      <div class="fbtn" data-filter="graphics">图形渲染</div>
-      <div class="fbtn" data-filter="engine">引擎</div>
-      <div class="fbtn" data-filter="xr">XR/VR</div>
-      <div class="fbtn" data-filter="ai">AI/视觉</div>
-    </div>
+      <div class="filters">
+        <div class="fbtn active" data-filter="all">全部</div>
+        <div class="fbtn" data-filter="graphics">图形渲染</div>
+        <div class="fbtn" data-filter="engine">引擎</div>
+        <div class="fbtn" data-filter="xr">XR/VR</div>
+        <div class="fbtn" data-filter="ai">AI/视觉</div>
+      </div>
 
-    <div class="grid">
+      <div class="grid">
 
-      <!-- UE5 BRDF -->
-      <div class="card project" data-tags="graphics,engine">
-        <div class="cardhead">
-          <div>
-            <div class="title">UE5 BRDF 渲染实现（Kulla–Conty 多次散射）</div>
-            <div class="meta">角色：图形渲染开发 / 核心实现者｜关键词：能量守恒、GGX、LUT、HLSL</div>
+        <!-- UE5 BRDF -->
+        <div class="card project" data-tags="graphics,engine">
+          <div class="cardhead">
+            <div>
+              <div class="title">UE5 BRDF 渲染实现（Kulla–Conty 多次散射）</div>
+              <div class="meta">角色：图形渲染开发 / 核心实现者｜关键词：能量守恒、GGX、LUT、HLSL</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">HLSL</span><span class="chip">Unreal Engine 5</span><span
+              class="chip">PBR</span>
+          </div>
+          <ul>
+            <li>编写蒙特卡洛 GGX 积分工具生成 BRDF LUT，并在 UE5 中自定义 HLSL 节点接管高光计算。</li>
+            <li>落地多次散射能量补偿方案，改善高粗糙材质能量损失与高光发灰问题。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/KullaContyBRDF" target="_blank" rel="noopener">代码/仓库</a>
+            <a class="btn"
+              href="https://zihanwportfolio.wordpress.com/2025/05/06/integrating-kulla-conty-brdf-for-real-time-pbr-in-ue5/"
+              target="_blank" rel="noopener">文章/Write-up</a>
+          </div>
+          <div class="project-gallery">
+            <img src="assets/cornell_box.png" class="project-img qr-click" alt="Cornell Box" />
           </div>
         </div>
-        <div class="chips">
-          <span class="chip">C++</span><span class="chip">HLSL</span><span class="chip">Unreal Engine 5</span><span class="chip">PBR</span>
-        </div>
-        <ul>
-          <li>编写蒙特卡洛 GGX 积分工具生成 BRDF LUT，并在 UE5 中自定义 HLSL 节点接管高光计算。</li>
-          <li>落地多次散射能量补偿方案，改善高粗糙材质能量损失与高光发灰问题。</li>
-        </ul>
-        <div class="links">
-          <a class="btn" href="https://github.com/ZihanWG/KullaContyBRDF" target="_blank" rel="noopener">代码/仓库</a>
-          <a class="btn" href="https://github.com/ZihanWG/KullaContyBRDF#readme" target="_blank" rel="noopener">README/技术说明</a>
-        </div>
-      </div>
 
-      <!-- OpenGL Engine -->
-      <div class="card project" data-tags="engine,graphics">
-        <div class="cardhead">
-          <div>
-            <div class="title">自研 OpenGL 图形渲染引擎（cglEngine）</div>
-            <div class="meta">角色：引擎开发者 / 架构设计｜关键词：模块化、PBR、HDR、后处理</div>
+        <!-- OpenGL Engine -->
+        <div class="card project" data-tags="engine,graphics">
+          <div class="cardhead">
+            <div>
+              <div class="title">自研 OpenGL 图形渲染引擎（cglEngine）</div>
+              <div class="meta">角色：引擎开发者 / 架构设计｜关键词：模块化、PBR、HDR、后处理</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">OpenGL</span><span class="chip">PBR</span><span
+              class="chip">HDR</span>
+          </div>
+          <ul>
+            <li>从零构建模块化引擎架构，实现渲染管线：PBR / 阴影 / HDR / 后处理。</li>
+            <li>扩展光线追踪与超采样模块，用于实时与离线渲染对比与验证。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/cglEngine" target="_blank" rel="noopener">代码/仓库</a>
+          </div>
+          <div class="project-gallery">
+            <div
+              style="display:flex; align-items:center; justify-content:center; width:100px; height:100px; border:1px dashed var(--muted); border-radius:8px; color:var(--muted); font-size:12px; flex-shrink:0;">
+              <img src="assets/assn6_shadowRay.png" class="project-img qr-click" alt="Shadow Ray" />
+            </div>
           </div>
         </div>
-        <div class="chips">
-          <span class="chip">C++</span><span class="chip">OpenGL</span><span class="chip">PBR</span><span class="chip">HDR</span>
-        </div>
-        <ul>
-          <li>从零构建模块化引擎架构，实现渲染管线：PBR / 阴影 / HDR / 后处理。</li>
-          <li>扩展光线追踪与超采样模块，用于实时与离线渲染对比与验证。</li>
-        </ul>
-        <div class="links">
-          <a class="btn" href="https://github.com/ZihanWG/cglEngine" target="_blank" rel="noopener">代码/仓库</a>
-          <a class="btn" href="https://github.com/ZihanWG/cglEngine#readme" target="_blank" rel="noopener">README/技术说明</a>
-        </div>
-      </div>
 
-      <!-- Uncanny Valley VR -->
-      <div class="card project" data-tags="xr">
-        <div class="cardhead">
-          <div>
-            <div class="title">VR 恐怖谷效应实验系统（Uncanny Valley VR）</div>
-            <div class="meta">角色：VR 技术负责人｜关键词：面部追踪、表情映射、滤波与同步</div>
+        <!-- Uncanny Valley VR -->
+        <div class="card project" data-tags="xr">
+          <div class="cardhead">
+            <div>
+              <div class="title">VR 恐怖谷效应实验系统（Uncanny Valley VR）</div>
+              <div class="meta">角色：VR 技术负责人｜关键词：面部追踪、表情映射、滤波与同步</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">Unity</span><span class="chip">Meta SDK</span><span class="chip">Face Tracking</span>
+          </div>
+          <ul>
+            <li>构建面部追踪驱动与表情映射系统，引入平滑滤波与同步机制。</li>
+            <li>用户负面反馈降低约 35%，用于 VR 用户实验与研究展示。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/UncannyValleyVR" target="_blank" rel="noopener">代码/仓库</a>
+            <a class="btn" href="https://youtu.be/_U8bSjyNTWg" target="_blank" rel="noopener">演示视频</a>
+            <a class="btn" href="https://zihanwportfolio.wordpress.com/2024/11/30/uncanny-valley-exploration-in-vr/"
+              target="_blank" rel="noopener">文章/Write-up</a>
+          </div>
+          <div class="project-gallery">
+            <img src="assets/texture.gif" class="project-img qr-click" alt="Texture GIF" />
           </div>
         </div>
-        <div class="chips">
-          <span class="chip">Unity</span><span class="chip">Meta SDK</span><span class="chip">Face Tracking</span>
-        </div>
-        <ul>
-          <li>构建面部追踪驱动与表情映射系统，引入平滑滤波与同步机制。</li>
-          <li>用户负面反馈降低约 35%，用于 VR 用户实验与研究展示。</li>
-        </ul>
-        <div class="links">
-          <a class="btn" href="https://github.com/ZihanWG/UncannyValleyVR" target="_blank" rel="noopener">代码/仓库</a>
-          <a class="btn" href="https://github.com/ZihanWG/UncannyValleyVR#readme" target="_blank" rel="noopener">README/项目说明</a>
-        </div>
-      </div>
 
-      <!-- 3DGS Style Transfer -->
-      <div class="card project" data-tags="ai,graphics">
-        <div class="cardhead">
-          <div>
-            <div class="title">实时 3D 风格迁移（3DGS Style Transfer）</div>
-            <div class="meta">角色：项目负责人｜关键词：时序一致性、LPIPS、重投影一致性</div>
+        <!-- 3DGS Style Transfer -->
+        <div class="card project" data-tags="ai,graphics">
+          <div class="cardhead">
+            <div>
+              <div class="title">实时 3D 风格迁移（3DGS Style Transfer）</div>
+              <div class="meta">角色：项目负责人｜关键词：时序一致性、LPIPS、重投影一致性</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">PyTorch</span><span class="chip">3D Gaussian Splatting</span><span
+              class="chip">LPIPS</span>
+          </div>
+          <ul>
+            <li>构建稳定优先的实时 3D 风格迁移管线，解决时间闪烁问题。</li>
+            <li>设计感知 + 几何一致性损失，多场景误差下降约 4%。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/3DStyle_Transfer_3DGS" target="_blank"
+              rel="noopener">代码/仓库</a>
+            <a class="btn" href="assets/Real_Time_3D_Asset_Style_Transfer.pdf" target="_blank" rel="noopener">文章
+              (PDF)</a>
+          </div>
+          <div class="project-gallery">
+            <div
+              style="display:flex; align-items:center; justify-content:center; width:100px; height:100px; border:1px dashed var(--muted); border-radius:8px; color:var(--muted); font-size:12px; flex-shrink:0;">
+              <img src="assets/comparison_hotdog.png" class="project-img qr-click" alt="Comparison Hotdog" />
+            </div>
           </div>
         </div>
-        <div class="chips">
-          <span class="chip">PyTorch</span><span class="chip">3D Gaussian Splatting</span><span class="chip">LPIPS</span>
+
+      </div>
+
+
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2>经历</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="title">RIT · MAGIC Spell Studios｜VR Developer（Unreal VR）</div>
+          <div class="meta">2025.08 – 至今</div>
+          <ul>
+            <li>基于 Unreal Engine（C++ / 蓝图）开发研究型 VR 系统与沉浸式应用。</li>
+            <li>负责交互/角色/场景模块与性能调优，支持多轮测试与演示交付。</li>
+          </ul>
         </div>
-        <ul>
-          <li>构建稳定优先的实时 3D 风格迁移管线，解决时间闪烁问题。</li>
-          <li>设计感知 + 几何一致性损失，多场景误差下降约 4%。</li>
-        </ul>
-        <div class="links">
-          <a class="btn" href="https://github.com/ZihanWG/3DStyle_Transfer_3DGS" target="_blank" rel="noopener">代码/仓库</a>
-          <a class="btn" href="https://github.com/ZihanWG/3DStyle_Transfer_3DGS#readme" target="_blank" rel="noopener">README/报告</a>
+
+        <div class="card">
+          <div class="title">网易（广州）｜VR 开发实习生</div>
+          <div class="meta">2023.03 – 2023.08</div>
+          <ul>
+            <li>Unity + Meta Quest：交互系统与渲染优化，掉帧率降低约 15%。</li>
+            <li>内部测试参与度提升 30%，多团队协作缩短开发周期约 20%。</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="title">阿里巴巴（杭州）｜Unity 游戏开发实习生</div>
+          <div class="meta">2022.06 – 2022.08</div>
+          <ul>
+            <li>背包系统与资源管理：内存占用降低 25%，查询效率提升 30%。</li>
+            <li>参与核心系统与玩法开发，敏捷迭代提升体验。</li>
+          </ul>
         </div>
       </div>
+    </section>
 
-    </div>
-
-    <div class="small" style="margin-top:10px;">
-      todo：每个项目 README 顶部加 2-3 张结果图 + 1 个 30 秒演示视频链接（B站更适合国内）。
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section id="experience">
-    <h2>经历</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="title">RIT · MAGIC Spell Studios｜VR Developer（Unreal VR）</div>
-        <div class="meta">2025.08 – 至今</div>
-        <ul>
-          <li>基于 Unreal Engine（C++ / 蓝图）开发研究型 VR 系统与沉浸式应用。</li>
-          <li>负责交互/角色/场景模块与性能调优，支持多轮测试与演示交付。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="title">网易（广州）｜VR 开发实习生</div>
-        <div class="meta">2023.03 – 2023.08</div>
-        <ul>
-          <li>Unity + Meta Quest：交互系统与渲染优化，掉帧率降低约 15%。</li>
-          <li>内部测试参与度提升 30%，多团队协作缩短开发周期约 20%。</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="title">阿里巴巴（杭州）｜Unity 游戏开发实习生</div>
-        <div class="meta">2022.06 – 2022.08</div>
-        <ul>
-          <li>背包系统与资源管理：内存占用降低 25%，查询效率提升 30%。</li>
-          <li>参与核心系统与玩法开发，敏捷迭代提升体验。</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Resume (Full CN) -->
+    <!-- Resume (Full CN) -->
     <section id="resume">
       <h2>中文简历（网页版｜完整版）</h2>
       <div class="card">
@@ -309,112 +572,113 @@
         <p class="small">
           电话：184-6332-5253 ｜ 邮箱：zihanwang7@outlook.com ｜ GitHub：
           <a href="https://github.com/ZihanWG" target="_blank" rel="noopener">github.com/ZihanWG</a> ｜ 作品集：
-          <a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank" rel="noopener">zihanwg.github.io/ZihanW.github.io</a><br/>
+          <a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank"
+            rel="noopener">zihanwg.github.io/ZihanW.github.io</a><br />
           求职方向：引擎开发 / 图形渲染 / 游戏开发 / XR 工程师 / 计算机视觉（CV）/ AI / 机器学习（ML）
         </p>
 
-      <h4>个人优势</h4>
-      <p>
-              计算机科学硕士在读（RIT），厦门大学本科。有网易 VR 与阿里 Unity 游戏开发实习经历。
-              技术方向聚焦实时渲染、图形引擎、XR 与 3D 系统开发；熟悉 C++ 图形开发、PBR 渲染、引擎结构设计与性能优化，
-              同时具备 AI/计算机视觉工具链（PyTorch / OpenCV）用于 3D/VR 项目落地。
-      </p>
+        <h4>个人优势</h4>
+        <p>
+          计算机科学硕士在读（RIT），厦门大学本科。有网易 VR 与阿里 Unity 游戏开发实习经历。
+          技术方向聚焦实时渲染、图形引擎、XR 与 3D 系统开发；熟悉 C++ 图形开发、PBR 渲染、引擎结构设计与性能优化，
+          同时具备 AI/计算机视觉工具链（PyTorch / OpenCV）用于 3D/VR 项目落地。
+        </p>
 
-      <h4>专业技能</h4>
-      <ul>
-        <li><b>编程语言：</b> C++ / C# / Python / Java / JavaScript</li>
-        <li><b>图形与引擎：</b> OpenGL / Vulkan / Unreal Engine 5 / Unity / HLSL</li>
-        <li><b>XR：</b> Meta SDK / OpenXR / ARCore / ARKit / Vuforia</li>
-        <li><b>AI/视觉：</b> PyTorch / TensorFlow / OpenCV</li>
-        <li><b>工具链：</b> Git / Jira / Figma / Blender / Maya / Adobe Suite / Docker</li>
-      </ul>
-
-      <h4>教育背景</h4>
-      <ul>
-        <li><b>罗切斯特理工学院（RIT）</b>｜计算机科学 硕士（2023.08 – 至今）<br/>
-          相关课程：计算机图形学、全局光照、算法、机器学习、计算机视觉、高级面向对象程序设计</li>
-        <li><b>厦门大学</b>｜数字媒体技术 学士（2019.09 – 2023.06）<br/>
-          相关课程：C/C++、数据结构、操作系统、游戏设计、游戏开发、游戏引擎设计</li>
-      </ul>
-
-      <h4>实习 / 工作经历</h4>
-      <ul>
-        <li><b>RIT · MAGIC Spell Studios｜VR Developer（Unreal VR）</b>（2025.08 – 至今）<br/>
-          基于 Unreal Engine（C++/蓝图）开发研究型 VR 系统；实现交互/角色/场景模块；负责性能调优与演示交付。</li>
-        <li><b>网易（广州）｜VR 开发实习生</b>（2023.03 – 2023.08）<br/>
-          Unity + Meta Quest 开发核心玩法 Demo；代码优化使掉帧率降低约 15%；内部测试参与度提升 30%；协同多团队周期缩短约 20%。</li>
-        <li><b>阿里巴巴（杭州）｜Unity 游戏开发实习生</b>（2022.06 – 2022.08）<br/>
-          设计背包/资源管理系统，内存 -25%，查询效率 +30%；跨团队协作使原型测试满意度提升约 15%。</li>
-      </ul>
-
-      <h4>核心项目经历</h4>
-      <ul>
-        <li><b>实时 3D 风格迁移（3DGS）</b>｜Python / PyTorch（2025.12）<br/>
-          基于 StyleSplat 思路构建稳定优先管线；融合 LPIPS 与重投影一致性损失；在 NeRF-Synthetic 多场景误差下降约 4%。</li>
-        <li><b>UE5 BRDF（Kulla–Conty）集成</b>｜C++ / HLSL / UE5（2025.05）<br/>
-          编写离线工具生成 BRDF LUT（蒙特卡洛 GGX）；在 UE5 材质图自定义 HLSL 节点实现多次散射能量补偿，实现实时能量守恒高光。</li>
-        <li><b>VR 恐怖谷效应实验系统</b>｜Unity / Meta SDK（2024.11）<br/>
-          改进面部追踪与视觉表现，测试中负面反馈降低 35%，角色真实感提升 20%。</li>
-        <li><b>GIT-COCO 视觉语言模型</b>｜PyTorch / CV（2024.05）<br/>
-          提升图像到文本生成模型 BLEU +10%；通过结构与批处理优化训练时间 -25%。</li>
-        <li><b>图形渲染引擎</b>｜OpenGL（2024.05）<br/>
-          构建 2D/3D 渲染管线（变换、层级、裁剪、光照、纹理、抗锯齿），实现全局光照（光追/超采样）。</li>
-      </ul>
-      <h4>游戏开发项目</h4>
-      <ul>
-        <li><b>Horror Hotel</b>｜Unreal（2023.01）<br/>
-          4 人团队主程，解谜玩法好评率 90%，通过流程改进提升开发效率 15%。</li>
-        <li><b>Fast Cat Run</b>｜Unity（2022.03）<br/>
-          跑酷游戏：资源优化使加载时间 -15%，冲刺迭代使 Bug 报告 -30%。</li>
-        <li><b>Little Golden Book</b>｜Unity / Vuforia（2022.10）<br/>
-          AR 故事交互：加入收集要素使参与度 +20%，原型迭代使开发时间 -25%。</li>
-        <li><b>Interstellar</b>｜Unity VR（2021.10）<br/>
-          VR 教育游戏：知识留存 +40%，沉浸与满意度 +35%，敏捷流程使迭代周期 -20%。</li>
-      </ul>
-
-      <h4>论文与研究</h4>
-      <ul>
-        <li>《The Impact of Visual Interface on Flow Experience in Video Games》（2022.12）</li>
-        <li>《Design and Development of Color Perception Treatment Video Game for Autistic Children》（2022.10）</li>
-      </ul>
-
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>联系</h2>
-    <div class="two">
-      <div class="card">
-       
+        <h4>专业技能</h4>
         <ul>
-          <li>电话：184-6332-5253</li>
-          <li>邮箱：<a href="mailto:zihanwang7@outlook.com">zihanwang7@outlook.com</a></li>
-          <li>GitHub：<a href="https://github.com/ZihanWG" target="_blank" rel="noopener">github.com/ZihanWG</a></li>
-          <li>作品集：<a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank" rel="noopener">zihanwg.github.io/ZihanW.github.io</a></li>
-          <li>简历：<a href="assets/resume.pdf" target="_blank" rel="noopener">assets/resume.pdf</a></li>
+          <li><b>编程语言：</b> C++ / C# / Python / Java / JavaScript</li>
+          <li><b>图形与引擎：</b> OpenGL / Vulkan / Unreal Engine 5 / Unity / HLSL</li>
+          <li><b>XR：</b> Meta SDK / OpenXR / ARCore / ARKit / Vuforia</li>
+          <li><b>AI/视觉：</b> PyTorch / TensorFlow / OpenCV</li>
+          <li><b>工具链：</b> Git / Jira / Figma / Blender / Maya / Adobe Suite / Docker</li>
+        </ul>
+
+        <h4>教育背景</h4>
+        <ul>
+          <li><b>罗切斯特理工学院（RIT）</b>｜计算机科学 硕士（2023.08 – 至今）<br />
+            相关课程：计算机图形学、全局光照、算法、机器学习、计算机视觉、高级面向对象程序设计</li>
+          <li><b>厦门大学</b>｜数字媒体技术 学士（2019.09 – 2023.06）<br />
+            相关课程：C/C++、数据结构、操作系统、游戏设计、游戏开发、游戏引擎设计</li>
+        </ul>
+
+        <h4>实习 / 工作经历</h4>
+        <ul>
+          <li><b>RIT · MAGIC Spell Studios｜VR Developer（</b>（2025.08 – 至今）<br />
+            基于 Unreal Engine（C++/蓝图）开发研究型 VR 系统；实现交互/角色/场景模块；负责性能调优与演示交付。</li>
+          <li><b>网易（广州）｜VR 开发实习生</b>（2023.03 – 2023.08）<br />
+            Unity + Meta Quest 开发核心玩法 Demo；代码优化使掉帧率降低约 15%；内部测试参与度提升 30%；协同多团队周期缩短约 20%。</li>
+          <li><b>阿里巴巴（杭州）｜Unity 游戏开发实习生</b>（2022.06 – 2022.08）<br />
+            设计背包/资源管理系统，内存 -25%，查询效率 +30%；跨团队协作使原型测试满意度提升约 15%。</li>
+        </ul>
+
+        <h4>核心项目经历</h4>
+        <ul>
+          <li><b>实时 3D 风格迁移（3DGS）</b>｜Python / PyTorch（2025.12）<br />
+            基于 StyleSplat 思路构建稳定优先管线；融合 LPIPS 与重投影一致性损失；在 NeRF-Synthetic 多场景误差下降约 4%。</li>
+          <li><b>UE5 BRDF（Kulla–Conty）集成</b>｜C++ / HLSL / UE5（2025.05）<br />
+            编写离线工具生成 BRDF LUT（蒙特卡洛 GGX）；在 UE5 材质图自定义 HLSL 节点实现多次散射能量补偿，实现实时能量守恒高光。</li>
+          <li><b>VR 恐怖谷效应实验系统</b>｜Unity / Meta SDK（2024.11）<br />
+            改进面部追踪与视觉表现，测试中负面反馈降低 35%，角色真实感提升 20%。</li>
+          <li><b>GIT-COCO 视觉语言模型</b>｜PyTorch / CV（2024.05）<br />
+            提升图像到文本生成模型 BLEU +10%；通过结构与批处理优化训练时间 -25%。</li>
+          <li><b>图形渲染引擎</b>｜OpenGL（2024.05）<br />
+            构建 2D/3D 渲染管线（变换、层级、裁剪、光照、纹理、抗锯齿），实现全局光照（光追/超采样）。</li>
+        </ul>
+        <h4>游戏开发项目</h4>
+        <ul>
+          <li><b>Horror Hotel</b>｜Unreal（2023.01）<br />
+            4 人团队主程，解谜玩法好评率 90%，通过流程改进提升开发效率 15%。</li>
+          <li><b>Fast Cat Run</b>｜Unity（2022.03）<br />
+            跑酷游戏：资源优化使加载时间 -15%，冲刺迭代使 Bug 报告 -30%。</li>
+          <li><b>Little Golden Book</b>｜Unity / Vuforia（2022.10）<br />
+            AR 故事交互：加入收集要素使参与度 +20%，原型迭代使开发时间 -25%。</li>
+          <li><b>Interstellar</b>｜Unity VR（2021.10）<br />
+            VR 教育游戏：知识留存 +40%，沉浸与满意度 +35%，敏捷流程使迭代周期 -20%。</li>
+        </ul>
+
+        <h4>论文与研究</h4>
+        <ul>
+          <li>《The Impact of Visual Interface on Flow Experience in Video Games》（2022.12）</li>
+          <li>《Design and Development of Color Perception Treatment Video Game for Autistic Children》（2022.10）</li>
         </ul>
 
       </div>
+    </section>
 
-      <div class="card">
-        <div class="title">微信二维码</div>
-        <div style="margin-top:10px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-          <img src="assets/wechat.jpg" alt="WeChat QR" class="qrimg qr-click" title="点击放大"
-     style="cursor:zoom-in;" />
+    <!-- Contact -->
+    <section id="contact">
+      <h2>联系</h2>
+      <div class="two">
+        <div class="card">
 
-      
+          <ul>
+            <li>电话：184-6332-5253</li>
+            <li>邮箱：<a href="mailto:zihanwang7@outlook.com">zihanwang7@outlook.com</a></li>
+            <li>GitHub：<a href="https://github.com/ZihanWG" target="_blank" rel="noopener">github.com/ZihanWG</a></li>
+            <li>作品集：<a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank"
+                rel="noopener">zihanwg.github.io/ZihanW.github.io</a></li>
+            <li>简历：<a href="assets/resume.pdf" target="_blank" rel="noopener">assets/resume.pdf</a></li>
+          </ul>
+
+        </div>
+
+        <div class="card">
+          <div class="title">微信二维码</div>
+          <div style="margin-top:10px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <img src="assets/wechat.jpg" alt="WeChat QR" class="qrimg qr-click" title="点击放大" style="cursor:zoom-in;" />
+
+
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="footer">
-    © <span id="y"></span> 王滋涵 · Portfolio ｜
+    <div class="footer">
+      © <span id="y"></span> 王滋涵 · Portfolio ｜
+    </div>
   </div>
-</div>
-<!-- WeChat QR Preview -->
-<div id="qrModal" style="
+  <!-- WeChat QR Preview -->
+  <div id="qrModal" style="
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.75);
@@ -424,41 +688,42 @@
   z-index:9999;
   cursor:zoom-out;
 ">
-  <img id="qrModalImg" src="" alt="WeChat QR Large"
-       style="max-width:90%; max-height:90%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.6);" />
-</div>
+    <img id="qrModalImg" src="" alt="WeChat QR Large"
+      style="max-width:90%; max-height:90%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.6);" />
+  </div>
 
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-  const buttons = Array.from(document.querySelectorAll('.fbtn'));
-  const projects = Array.from(document.querySelectorAll('.project'));
+    const buttons = Array.from(document.querySelectorAll('.fbtn'));
+    const projects = Array.from(document.querySelectorAll('.project'));
 
-  function setFilter(tag){
-    buttons.forEach(b => b.classList.toggle('active', b.dataset.filter === tag));
-    projects.forEach(p => {
-      const tags = p.dataset.tags.split(',').map(s=>s.trim());
-      const show = (tag === 'all') || tags.includes(tag);
-      p.style.display = show ? 'block' : 'none';
+    function setFilter(tag) {
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.filter === tag));
+      projects.forEach(p => {
+        const tags = p.dataset.tags.split(',').map(s => s.trim());
+        const show = (tag === 'all') || tags.includes(tag);
+        p.style.display = show ? 'block' : 'none';
+      });
+    }
+    buttons.forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
+    // Image click to zoom
+    const clickableImages = document.querySelectorAll('.qr-click');
+    const modal = document.getElementById('qrModal');
+    const modalImg = document.getElementById('qrModalImg');
+
+    clickableImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.style.display = 'flex';
+      });
     });
-  }
-  buttons.forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
-  // WeChat QR click to zoom
-const qr = document.querySelector('.qr-click');
-const modal = document.getElementById('qrModal');
-const modalImg = document.getElementById('qrModalImg');
 
-if(qr){
-  qr.addEventListener('click', () => {
-    modalImg.src = qr.src;
-    modal.style.display = 'flex';
-  });
-}
+    modal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
 
-modal.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
-</script>
+  </script>
 </body>
+
 </html>
