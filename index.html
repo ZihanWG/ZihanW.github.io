@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>王滋涵 | Vulkan / OpenGL / 图形渲染 / 引擎开发 / XR / CV & AI 作品集</title>
-  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜图形渲染 / 引擎开发 / XR / CV & AI ｜Vulkan Engine、OpenGL Engine、UE5 BRDF、3DGS Style Transfer、Uncanny Valley VR" />
+  <title>王滋涵 | 图形渲染 / 引擎开发 / XR 作品集</title>
+  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜图形渲染 / 引擎开发 / XR｜Vulkan Engine、OpenGL Engine、UE5 BRDF、3DGS Style Transfer、Uncanny Valley VR" />
   <style>
     :root {
       --bg: #0b0d12;
@@ -358,7 +358,7 @@
         <div class="dot"></div>
         <div>
           <div style="font-weight:700">王滋涵 · Portfolio</div>
-          <div class="small">Vulkan / OpenGL / 图形渲染 / 引擎开发 / XR / CV & AI</div>
+          <div class="small">图形渲染 / 引擎开发 / XR / 3D AI</div>
         </div>
       </div>
       <nav class="nav">
@@ -373,9 +373,9 @@
     <div class="hero">
       <h1>王滋涵（Zihan Wang）</h1>
       <div class="subtitle">
-        RIT 计算机科学硕士在读｜厦门大学本科｜网易 VR / 阿里 Unity 实习｜MAGIC Spell Studios <br />
-        方向覆盖：实时渲染与引擎（C++/Vulkan/OpenGL/UE5/Unity）、XR 交互，以及 CV/AI/ML 在 3D 与 VR 场景中的应用落地<br />
-        求职方向：引擎开发 / 图形渲染 / 游戏开发 / XR 工程师 / 计算机视觉（CV）/ AI / 机器学习（ML）
+        RIT 计算机科学硕士在读｜厦门大学本科｜网易 VR / 阿里 Unity 实习｜RIT MAGIC Spell Studios VR Developer<br />
+        方向聚焦：实时渲染、图形引擎、XR 系统与 3D AI 应用，核心技术栈覆盖 C++ / Vulkan / OpenGL / UE5 / Unity。<br />
+        求职方向：图形渲染 / 引擎开发 / XR 工程师 / 游戏客户端开发
       </div>
 
       <div class="badges">
@@ -397,7 +397,7 @@
 
       <div class="note">
         <b>快速浏览：</b>先看「代表项目」→ 点进 GitHub README（实现细节）→ 需要可下载简历 PDF。<br />
-        <b>定位：</b>用渲染/引擎能力构建 XR 体验，用 CV/AI/ML 提升 3D 系统智能与表现（风格迁移/追踪/虚拟人等）。
+        <b>定位：</b>以图形渲染和引擎开发为主线，结合 XR 交互与 3D AI 项目经验，展示从底层渲染管线到实时应用落地的完整能力。
       </div>
     </div>
 
@@ -441,6 +441,30 @@
           </div>
         </div>
 
+        <!-- OpenGL Engine -->
+        <div class="card project" data-tags="engine,graphics">
+          <div class="cardhead">
+            <div>
+              <div class="title">OpenGL 图形渲染引擎（CGRenderEngine）</div>
+              <div class="meta">角色：引擎开发者 / 图形渲染开发｜关键词：OpenGL、模块化、PBR、阴影、HDR、后处理</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">OpenGL</span><span class="chip">GLSL</span><span class="chip">PBR</span><span class="chip">HDR</span>
+          </div>
+          <ul>
+            <li>构建模块化 OpenGL 渲染引擎，覆盖场景组织、Shader/Material 管理、光照、阴影、HDR 与后处理流程。</li>
+            <li>通过图形作业与引擎模块积累渲染管线设计、调试、资源管理和性能优化经验。</li>
+            <li>扩展光线追踪与超采样实验，用于对比实时光栅化与离线渲染效果。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/CGRenderEngine" target="_blank" rel="noopener">代码/仓库</a>
+          </div>
+          <div class="project-gallery">
+            <img src="assets/assn6_shadowRay.png" class="project-img qr-click" alt="OpenGL Engine Shadow Ray Result" />
+          </div>
+        </div>
+
         <!-- UE5 BRDF -->
         <div class="card project" data-tags="graphics,engine">
           <div class="cardhead">
@@ -454,8 +478,9 @@
               class="chip">PBR</span>
           </div>
           <ul>
-            <li>编写蒙特卡洛 GGX 积分工具生成 BRDF LUT，并在 UE5 中自定义 HLSL 节点接管高光计算。</li>
-            <li>落地多次散射能量补偿方案，改善高粗糙材质能量损失与高光发灰问题。</li>
+            <li>基于 Kulla–Conty 多次散射思想实现 BRDF 能量补偿，解决高粗糙度材质在单次散射模型下的能量损失问题。</li>
+            <li>编写蒙特卡洛 GGX 积分工具生成 BRDF LUT，并在 UE5 中通过自定义 HLSL 节点接入实时材质流程。</li>
+            <li>围绕 PBR、Fresnel、NDF、Geometry Term 与 LUT 查表流程进行实现和对比，强化渲染理论到工程落地能力。</li>
           </ul>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/KullaContyBRDF" target="_blank" rel="noopener">代码/仓库</a>
@@ -465,60 +490,6 @@
           </div>
           <div class="project-gallery">
             <img src="assets/cornell_box.png" class="project-img qr-click" alt="Cornell Box" />
-          </div>
-        </div>
-
-        <!-- OpenGL Engine -->
-        <div class="card project" data-tags="engine,graphics">
-          <div class="cardhead">
-            <div>
-              <div class="title">OpenGL 图形渲染引擎（CGRenderEngine）</div>
-              <div class="meta">角色：引擎开发者 / 图形渲染开发｜关键词：OpenGL、模块化、PBR、阴影、HDR、后处理</div>
-            </div>
-          </div>
-          <div class="chips">
-            <span class="chip">C++</span><span class="chip">OpenGL</span><span class="chip">PBR</span><span
-              class="chip">HDR</span>
-          </div>
-          <ul>
-            <li>构建模块化 OpenGL 渲染引擎，覆盖场景组织、Shader/Material 管理、光照、阴影、HDR 与后处理流程。</li>
-            <li>通过图形作业与引擎模块积累渲染管线设计、调试、资源管理和性能优化经验。</li>
-            <li>扩展光线追踪与超采样实验，用于对比实时光栅化与离线渲染效果。</li>
-          </ul>
-          <div class="links">
-            <a class="btn" href="https://github.com/ZihanWG/CGRenderEngine" target="_blank" rel="noopener">代码/仓库</a>
-          </div>
-          <div class="project-gallery">
-            <div
-              style="display:flex; align-items:center; justify-content:center; width:100px; height:100px; border:1px dashed var(--muted); border-radius:8px; color:var(--muted); font-size:12px; flex-shrink:0;">
-              <img src="assets/assn6_shadowRay.png" class="project-img qr-click" alt="Shadow Ray" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Uncanny Valley VR -->
-        <div class="card project" data-tags="xr">
-          <div class="cardhead">
-            <div>
-              <div class="title">VR 恐怖谷效应实验系统（Uncanny Valley VR）</div>
-              <div class="meta">角色：VR 技术负责人｜关键词：面部追踪、表情映射、滤波与同步</div>
-            </div>
-          </div>
-          <div class="chips">
-            <span class="chip">Unity</span><span class="chip">Meta SDK</span><span class="chip">Face Tracking</span>
-          </div>
-          <ul>
-            <li>构建面部追踪驱动与表情映射系统，引入平滑滤波与同步机制。</li>
-            <li>用户负面反馈降低约 35%，用于 VR 用户实验与研究展示。</li>
-          </ul>
-          <div class="links">
-            <a class="btn" href="https://github.com/ZihanWG/UncannyValleyVR" target="_blank" rel="noopener">代码/仓库</a>
-            <a class="btn" href="https://youtu.be/_U8bSjyNTWg" target="_blank" rel="noopener">演示视频</a>
-            <a class="btn" href="https://zihanwportfolio.wordpress.com/2024/11/30/uncanny-valley-exploration-in-vr/"
-              target="_blank" rel="noopener">文章/Write-up</a>
-          </div>
-          <div class="project-gallery">
-            <img src="assets/texture.gif" class="project-img qr-click" alt="Texture GIF" />
           </div>
         </div>
 
@@ -535,8 +506,9 @@
               class="chip">LPIPS</span>
           </div>
           <ul>
-            <li>构建稳定优先的实时 3D 风格迁移管线，解决时间闪烁问题。</li>
-            <li>设计感知 + 几何一致性损失，多场景误差下降约 4%。</li>
+            <li>构建面向 3D Gaussian Splatting 场景的实时风格迁移管线，重点解决跨视角风格不稳定与时间闪烁问题。</li>
+            <li>结合感知损失与重投影一致性约束，提高多视角渲染下的结构保持和时序一致性。</li>
+            <li>作为 3D AI / neural rendering 项目补充图形主线，展示 PyTorch、CV 与实时 3D 表示的结合能力。</li>
           </ul>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/3DStyle_Transfer_3DGS" target="_blank"
@@ -545,10 +517,34 @@
               (PDF)</a>
           </div>
           <div class="project-gallery">
-            <div
-              style="display:flex; align-items:center; justify-content:center; width:100px; height:100px; border:1px dashed var(--muted); border-radius:8px; color:var(--muted); font-size:12px; flex-shrink:0;">
-              <img src="assets/comparison_hotdog.png" class="project-img qr-click" alt="Comparison Hotdog" />
+            <img src="assets/comparison_hotdog.png" class="project-img qr-click" alt="3DGS Style Transfer Comparison" />
+          </div>
+        </div>
+
+        <!-- Uncanny Valley VR -->
+        <div class="card project" data-tags="xr">
+          <div class="cardhead">
+            <div>
+              <div class="title">VR 恐怖谷效应实验系统（Uncanny Valley VR）</div>
+              <div class="meta">角色：VR 技术负责人｜关键词：面部追踪、表情映射、滤波与同步</div>
             </div>
+          </div>
+          <div class="chips">
+            <span class="chip">Unity</span><span class="chip">Meta SDK</span><span class="chip">Face Tracking</span>
+          </div>
+          <ul>
+            <li>构建基于 Meta Quest Pro 面部追踪的 VR 实验系统，将用户表情映射到虚拟角色并用于恐怖谷感知研究。</li>
+            <li>引入平滑滤波、同步控制、眼部微动与材质/噪声变量，降低追踪抖动和表情不自然带来的负面感知。</li>
+            <li>项目体现 XR 交互、实时角色驱动、用户实验设计与 Unity 工程实现能力。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/UncannyValleyVR" target="_blank" rel="noopener">代码/仓库</a>
+            <a class="btn" href="https://youtu.be/_U8bSjyNTWg" target="_blank" rel="noopener">演示视频</a>
+            <a class="btn" href="https://zihanwportfolio.wordpress.com/2024/11/30/uncanny-valley-exploration-in-vr/"
+              target="_blank" rel="noopener">文章/Write-up</a>
+          </div>
+          <div class="project-gallery">
+            <img src="assets/texture.gif" class="project-img qr-click" alt="Texture GIF" />
           </div>
         </div>
 
@@ -565,8 +561,8 @@
           <div class="title">RIT · MAGIC Spell Studios｜VR Developer（Unreal VR）</div>
           <div class="meta">2025.08 – 至今</div>
           <ul>
-            <li>基于 Unreal Engine（C++ / 蓝图）开发研究型 VR 系统与沉浸式应用。</li>
-            <li>负责交互/角色/场景模块与性能调优，支持多轮测试与演示交付。</li>
+            <li>基于 Unreal Engine（C++ / Blueprint）开发研究型 VR 系统与沉浸式应用。</li>
+            <li>负责 VR 交互、角色/场景模块、系统集成与性能调优，支持多轮测试和展示交付。</li>
           </ul>
         </div>
 
@@ -600,20 +596,20 @@
           <a href="https://github.com/ZihanWG" target="_blank" rel="noopener">github.com/ZihanWG</a> ｜ 作品集：
           <a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank"
             rel="noopener">zihanwg.github.io/ZihanW.github.io</a><br />
-          求职方向：引擎开发 / 图形渲染 / 游戏开发 / XR 工程师 / 计算机视觉（CV）/ AI / 机器学习（ML）
+          求职方向：图形渲染 / 引擎开发 / XR 工程师 / 游戏客户端开发
         </p>
 
         <h4>个人优势</h4>
         <p>
           计算机科学硕士在读（RIT），厦门大学本科。有网易 VR 与阿里 Unity 游戏开发实习经历。
-          技术方向聚焦实时渲染、图形引擎、XR 与 3D 系统开发；熟悉 C++ 图形开发、PBR 渲染、引擎结构设计与性能优化，
-          同时具备 AI/计算机视觉工具链（PyTorch / OpenCV）用于 3D/VR 项目落地。
+          技术方向聚焦实时渲染、图形引擎、XR 与 3D 系统开发；熟悉 C++ 图形开发、Vulkan/OpenGL 渲染管线、PBR 渲染、
+          引擎结构设计与性能优化，同时具备 PyTorch / OpenCV 工具链在 3D/VR 项目中的落地经验。
         </p>
 
         <h4>专业技能</h4>
         <ul>
           <li><b>编程语言：</b> C++ / C# / Python / Java / JavaScript</li>
-          <li><b>图形与引擎：</b> OpenGL / Vulkan / Unreal Engine 5 / Unity / HLSL</li>
+          <li><b>图形与引擎：</b> Vulkan / OpenGL / Unreal Engine 5 / Unity / HLSL / GLSL</li>
           <li><b>XR：</b> Meta SDK / OpenXR / ARCore / ARKit / Vuforia</li>
           <li><b>AI/视觉：</b> PyTorch / TensorFlow / OpenCV</li>
           <li><b>工具链：</b> Git / Jira / Figma / Blender / Maya / Adobe Suite / Docker</li>
@@ -629,7 +625,7 @@
 
         <h4>实习 / 工作经历</h4>
         <ul>
-          <li><b>RIT · MAGIC Spell Studios｜VR Developer（</b>（2025.08 – 至今）<br />
+          <li><b>RIT · MAGIC Spell Studios｜VR Developer</b>（2025.08 – 至今）<br />
             基于 Unreal Engine（C++/蓝图）开发研究型 VR 系统；实现交互/角色/场景模块；负责性能调优与演示交付。</li>
           <li><b>网易（广州）｜VR 开发实习生</b>（2023.03 – 2023.08）<br />
             Unity + Meta Quest 开发核心玩法 Demo；代码优化使掉帧率降低约 15%；内部测试参与度提升 30%；协同多团队周期缩短约 20%。</li>
@@ -640,17 +636,17 @@
         <h4>核心项目经历</h4>
         <ul>
           <li><b>Vulkan 图形渲染引擎</b>｜C++ / Vulkan / GLSL（2026）<br />
-            构建 Vulkan 实时渲染器，实现显式资源管理、同步、PBR、阴影映射、纹理采样、Mipmap 与调试 UI，强化底层图形 API 与引擎架构能力。</li>
-          <li><b>实时 3D 风格迁移（3DGS）</b>｜Python / PyTorch（2025.12）<br />
-            基于 StyleSplat 思路构建稳定优先管线；融合 LPIPS 与重投影一致性损失；在 NeRF-Synthetic 多场景误差下降约 4%。</li>
-          <li><b>UE5 BRDF（Kulla–Conty）集成</b>｜C++ / HLSL / UE5（2025.05）<br />
-            编写离线工具生成 BRDF LUT（蒙特卡洛 GGX）；在 UE5 材质图自定义 HLSL 节点实现多次散射能量补偿，实现实时能量守恒高光。</li>
-          <li><b>VR 恐怖谷效应实验系统</b>｜Unity / Meta SDK（2024.11）<br />
-            改进面部追踪与视觉表现，测试中负面反馈降低 35%，角色真实感提升 20%。</li>
+            构建 Vulkan 实时渲染器，覆盖 Swapchain、Command Buffer、Descriptor、Image Layout、Pipeline 与 Sync2 同步；实现 PBR、阴影映射、手写 PCF、Mipmap、法线贴图与调试 UI。</li>
+          <li><b>OpenGL 图形渲染引擎（CGRenderEngine）</b>｜C++ / OpenGL / GLSL（2024.01 – 2024.08）<br />
+            构建模块化 OpenGL 渲染引擎，覆盖场景组织、Shader/Material 管理、光照、阴影、HDR 与后处理，并扩展光线追踪与超采样实验。</li>
+          <li><b>实时 3D 风格迁移（3DGS）</b>｜Python / PyTorch（2025.09 – 2025.12）<br />
+            构建面向 3D Gaussian Splatting 的风格迁移管线，结合感知损失与重投影一致性约束，改善跨视角结构保持与时序稳定性。</li>
+          <li><b>UE5 BRDF（Kulla–Conty）集成</b>｜C++ / HLSL / UE5（2025.01 – 2025.05）<br />
+            基于 Kulla–Conty 多次散射模型实现 BRDF 能量补偿；编写蒙特卡洛 GGX 积分工具生成 LUT，并在 UE5 中接入自定义 HLSL 材质流程。</li>
+          <li><b>VR 恐怖谷效应实验系统</b>｜Unity / Meta SDK（2024.09 – 2024.12）<br />
+            构建面部追踪驱动与表情映射系统，引入滤波、同步、眼部微动与材质/噪声变量，用于 VR 用户实验与研究展示。</li>
           <li><b>GIT-COCO 视觉语言模型</b>｜PyTorch / CV（2024.05）<br />
             提升图像到文本生成模型 BLEU +10%；通过结构与批处理优化训练时间 -25%。</li>
-          <li><b>OpenGL 图形渲染引擎（CGRenderEngine）</b>｜C++ / OpenGL / GLSL（2024.05）<br />
-            构建 2D/3D 渲染管线与模块化引擎结构，覆盖变换、层级、裁剪、光照、纹理、抗锯齿、阴影、HDR、后处理与光追/超采样实验。</li>
         </ul>
         <h4>游戏开发项目</h4>
         <ul>
