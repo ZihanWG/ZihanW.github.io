@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>王滋涵 | 图形渲染 / 引擎开发 / XR / CV & AI 作品集</title>
-  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜图形渲染 / 引擎开发 / XR / CV & AI ｜UE5 BRDF、OpenGL 引擎、VR 项目" />
+  <title>王滋涵 | Vulkan / OpenGL / 图形渲染 / 引擎开发 / XR / CV & AI 作品集</title>
+  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜图形渲染 / 引擎开发 / XR / CV & AI ｜Vulkan Engine、OpenGL Engine、UE5 BRDF、3DGS Style Transfer、Uncanny Valley VR" />
   <style>
     :root {
       --bg: #0b0d12;
@@ -358,7 +358,7 @@
         <div class="dot"></div>
         <div>
           <div style="font-weight:700">王滋涵 · Portfolio</div>
-          <div class="small">图形渲染 / 引擎开发 / XR / CV & AI </div>
+          <div class="small">Vulkan / OpenGL / 图形渲染 / 引擎开发 / XR / CV & AI</div>
         </div>
       </div>
       <nav class="nav">
@@ -374,14 +374,14 @@
       <h1>王滋涵（Zihan Wang）</h1>
       <div class="subtitle">
         RIT 计算机科学硕士在读｜厦门大学本科｜网易 VR / 阿里 Unity 实习｜MAGIC Spell Studios <br />
-        方向覆盖：实时渲染与引擎（C++/UE5/Unity/OpenGL/Vulkan）、XR 交互，以及 CV/AI/ML 在 3D 与 VR 场景中的应用落地
+        方向覆盖：实时渲染与引擎（C++/Vulkan/OpenGL/UE5/Unity）、XR 交互，以及 CV/AI/ML 在 3D 与 VR 场景中的应用落地<br />
         求职方向：引擎开发 / 图形渲染 / 游戏开发 / XR 工程师 / 计算机视觉（CV）/ AI / 机器学习（ML）
       </div>
 
       <div class="badges">
         <span class="badge">C++ / C#</span>
         <span class="badge">Unreal Engine 5 / Unity</span>
-        <span class="badge">OpenGL / Vulkan / HLSL</span>
+        <span class="badge">Vulkan / OpenGL / HLSL / GLSL</span>
         <span class="badge">OpenXR / Meta SDK</span>
         <span class="badge">PyTorch / OpenCV</span>
         <span class="badge">Computer Vision</span>
@@ -416,6 +416,31 @@
 
       <div class="grid">
 
+        <!-- Vulkan Engine -->
+        <div class="card project" data-tags="engine,graphics">
+          <div class="cardhead">
+            <div>
+              <div class="title">Vulkan 图形渲染引擎（Vulkan Engine）</div>
+              <div class="meta">角色：图形 / 引擎开发者｜关键词：Vulkan、动态渲染、同步、PBR、阴影、调试工具</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">Vulkan</span><span class="chip">GLSL</span><span
+              class="chip">PBR</span><span class="chip">Shadow Mapping</span>
+          </div>
+          <ul>
+            <li>构建现代 Vulkan 渲染器，覆盖 Swapchain、Command Buffer、Descriptor、Image Layout、Pipeline 与 Sync2 同步等底层图形 API 核心模块。</li>
+            <li>实现 PBR 着色、阴影映射、手写 PCF、Mipmap 生成、法线贴图、材质纹理采样与场景层级调试面板等实时渲染功能。</li>
+            <li>以引擎架构学习和可扩展渲染管线为目标，重点训练显式 GPU 资源管理、渲染状态组织、调试可视化与性能分析能力。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/VulkanEngine" target="_blank" rel="noopener">代码/仓库</a>
+          </div>
+          <div class="project-gallery">
+            <img src="assets/vulkan_engine.png" class="project-img qr-click" alt="Vulkan Engine Screenshot" />
+          </div>
+        </div>
+
         <!-- UE5 BRDF -->
         <div class="card project" data-tags="graphics,engine">
           <div class="cardhead">
@@ -447,8 +472,8 @@
         <div class="card project" data-tags="engine,graphics">
           <div class="cardhead">
             <div>
-              <div class="title">自研 OpenGL 图形渲染引擎（cglEngine）</div>
-              <div class="meta">角色：引擎开发者 / 架构设计｜关键词：模块化、PBR、HDR、后处理</div>
+              <div class="title">OpenGL 图形渲染引擎（CGRenderEngine）</div>
+              <div class="meta">角色：引擎开发者 / 图形渲染开发｜关键词：OpenGL、模块化、PBR、阴影、HDR、后处理</div>
             </div>
           </div>
           <div class="chips">
@@ -456,11 +481,12 @@
               class="chip">HDR</span>
           </div>
           <ul>
-            <li>从零构建模块化引擎架构，实现渲染管线：PBR / 阴影 / HDR / 后处理。</li>
-            <li>扩展光线追踪与超采样模块，用于实时与离线渲染对比与验证。</li>
+            <li>构建模块化 OpenGL 渲染引擎，覆盖场景组织、Shader/Material 管理、光照、阴影、HDR 与后处理流程。</li>
+            <li>通过图形作业与引擎模块积累渲染管线设计、调试、资源管理和性能优化经验。</li>
+            <li>扩展光线追踪与超采样实验，用于对比实时光栅化与离线渲染效果。</li>
           </ul>
           <div class="links">
-            <a class="btn" href="https://github.com/ZihanWG/cglEngine" target="_blank" rel="noopener">代码/仓库</a>
+            <a class="btn" href="https://github.com/ZihanWG/CGRenderEngine" target="_blank" rel="noopener">代码/仓库</a>
           </div>
           <div class="project-gallery">
             <div
@@ -613,6 +639,8 @@
 
         <h4>核心项目经历</h4>
         <ul>
+          <li><b>Vulkan 图形渲染引擎</b>｜C++ / Vulkan / GLSL（2026）<br />
+            构建 Vulkan 实时渲染器，实现显式资源管理、同步、PBR、阴影映射、纹理采样、Mipmap 与调试 UI，强化底层图形 API 与引擎架构能力。</li>
           <li><b>实时 3D 风格迁移（3DGS）</b>｜Python / PyTorch（2025.12）<br />
             基于 StyleSplat 思路构建稳定优先管线；融合 LPIPS 与重投影一致性损失；在 NeRF-Synthetic 多场景误差下降约 4%。</li>
           <li><b>UE5 BRDF（Kulla–Conty）集成</b>｜C++ / HLSL / UE5（2025.05）<br />
@@ -621,8 +649,8 @@
             改进面部追踪与视觉表现，测试中负面反馈降低 35%，角色真实感提升 20%。</li>
           <li><b>GIT-COCO 视觉语言模型</b>｜PyTorch / CV（2024.05）<br />
             提升图像到文本生成模型 BLEU +10%；通过结构与批处理优化训练时间 -25%。</li>
-          <li><b>图形渲染引擎</b>｜OpenGL（2024.05）<br />
-            构建 2D/3D 渲染管线（变换、层级、裁剪、光照、纹理、抗锯齿），实现全局光照（光追/超采样）。</li>
+          <li><b>OpenGL 图形渲染引擎（CGRenderEngine）</b>｜C++ / OpenGL / GLSL（2024.05）<br />
+            构建 2D/3D 渲染管线与模块化引擎结构，覆盖变换、层级、裁剪、光照、纹理、抗锯齿、阴影、HDR、后处理与光追/超采样实验。</li>
         </ul>
         <h4>游戏开发项目</h4>
         <ul>
@@ -688,7 +716,7 @@
   z-index:9999;
   cursor:zoom-out;
 ">
-    <img id="qrModalImg" src="" alt="WeChat QR Large"
+    <img id="qrModalImg" src="" alt="Image Large Preview"
       style="max-width:90%; max-height:90%; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.6);" />
   </div>
 
