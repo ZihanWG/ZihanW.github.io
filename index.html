@@ -320,6 +320,7 @@
       scrollbar-width: thin;
       /* Firefox */
       scrollbar-color: var(--line) transparent;
+      width: 100%;
     }
 
     .project-gallery::-webkit-scrollbar {
@@ -332,11 +333,12 @@
     }
 
     .project-img {
-      height: 120px;
-      width: auto;
+      width: 100%;
+      height: 220px;
       border-radius: 8px;
       border: 1px solid var(--line);
       object-fit: cover;
+      object-position: center;
       flex-shrink: 0;
       background: rgba(0, 0, 0, 0.2);
       cursor: default;
@@ -344,14 +346,15 @@
     }
 
     .project-img:hover {
-      transform: scale(1.05);
+      transform: none;
     }
 
     .project-img.featured {
       width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
+      height: 220px;
+      aspect-ratio: auto;
       object-fit: cover;
+      object-position: center;
     }
   </style>
 </head>
