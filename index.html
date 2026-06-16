@@ -341,13 +341,12 @@
       object-position: center;
       flex-shrink: 0;
       background: rgba(0, 0, 0, 0.2);
-      cursor: default;
-      pointer-events: none;
-      transition: none;
+      cursor: zoom-in;
+      transition: transform 0.2s;
     }
 
     .project-img:hover {
-      transform: none;
+      transform: scale(1.01);
     }
 
     .project-img.featured {
@@ -362,6 +361,32 @@
       object-fit: contain;
       object-position: center;
       background: #05070c;
+    }
+
+    .img-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(0, 0, 0, .78);
+      z-index: 9999;
+      cursor: zoom-out;
+    }
+
+    .img-modal.open {
+      display: flex;
+    }
+
+    .img-modal img {
+      max-width: 92vw;
+      max-height: 90vh;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 70px rgba(0, 0, 0, .65);
+      background: #05070c;
+      object-fit: contain;
     }
   </style>
 </head>
@@ -695,6 +720,10 @@
     </div>
   </div>
 
+  <div id="imgModal" class="img-modal" aria-hidden="true">
+    <img id="imgModalContent" src="" alt="Project image preview" />
+  </div>
+
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
@@ -710,6 +739,36 @@
       });
     }
     buttons.forEach(b => b.addEventListener('click', () => setFilter(b.dataset.filter)));
+
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('imgModalContent');
+    const projectImages = Array.from(document.querySelectorAll('.project-img'));
+
+    projectImages.forEach(img => {
+      // Don't attach modal to qrimg (WeChat QR), only .project-img
+      if (!img.classList.contains('qrimg')) {
+        img.addEventListener('click', () => {
+          modalImg.src = img.src;
+          modalImg.alt = img.alt || 'Project image preview';
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
+        });
+      }
+    });
+
+    modal.addEventListener('click', () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('open')) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+      }
+    });
   </script>
 </body>
 
