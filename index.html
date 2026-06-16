@@ -342,7 +342,8 @@
       flex-shrink: 0;
       background: rgba(0, 0, 0, 0.2);
       cursor: default;
-      transition: transform 0.2s;
+      pointer-events: none;
+      transition: none;
     }
 
     .project-img:hover {
@@ -355,6 +356,12 @@
       aspect-ratio: auto;
       object-fit: cover;
       object-position: center;
+    }
+
+    .project-img.contain {
+      object-fit: contain;
+      object-position: center;
+      background: #05070c;
     }
   </style>
 </head>
@@ -557,7 +564,7 @@
               (PDF)</a>
           </div>
           <div class="project-gallery">
-            <img src="assets/comparison_hotdog.png" class="project-img" alt="3DGS Style Transfer Comparison" />
+            <img src="assets/comparison_hotdog.png" class="project-img contain" alt="3DGS Style Transfer Comparison" />
           </div>
         </div>
 
@@ -662,15 +669,24 @@
     <!-- Contact -->
     <section id="contact">
       <h2>联系</h2>
-      <div class="card">
-        <ul>
-          <li>邮箱：<a href="mailto:zihanwang7@outlook.com">zihanwang7@outlook.com</a></li>
-          <li>GitHub：<a href="https://github.com/ZihanWG" target="_blank" rel="noopener">github.com/ZihanWG</a></li>
-          <li>作品集：<a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank"
-              rel="noopener">zihanwg.github.io/ZihanW.github.io</a></li>
-          <li>简历：<a href="assets/resume.pdf" target="_blank" rel="noopener">assets/resume.pdf</a></li>
-        </ul>
-        <p class="small">如需电话或微信联系，可通过邮件进一步沟通。</p>
+      <div class="two">
+        <div class="card">
+          <ul>
+            <li>电话：184-6332-5253</li>
+            <li>邮箱：<a href="mailto:zihanwang7@outlook.com">zihanwang7@outlook.com</a></li>
+            <li>GitHub：<a href="https://github.com/ZihanWG" target="_blank" rel="noopener">github.com/ZihanWG</a></li>
+            <li>作品集：<a href="https://zihanwg.github.io/ZihanW.github.io/" target="_blank"
+                rel="noopener">zihanwg.github.io/ZihanW.github.io</a></li>
+            <li>简历：<a href="assets/resume.pdf" target="_blank" rel="noopener">assets/resume.pdf</a></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="title">微信二维码</div>
+          <div style="margin-top:10px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+            <img src="assets/wechat.jpg" alt="WeChat QR" class="qrimg" title="WeChat QR" />
+          </div>
+        </div>
       </div>
     </section>
 
