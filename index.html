@@ -284,6 +284,7 @@
       border: 1px solid var(--line);
       background: #0b0d12;
       object-fit: cover;
+      cursor: zoom-in;
     }
 
     .footer {
@@ -742,18 +743,15 @@
 
     const modal = document.getElementById('imgModal');
     const modalImg = document.getElementById('imgModalContent');
-    const projectImages = Array.from(document.querySelectorAll('.project-img'));
+    const zoomImages = Array.from(document.querySelectorAll('.project-img, .qrimg'));
 
-    projectImages.forEach(img => {
-      // Don't attach modal to qrimg (WeChat QR), only .project-img
-      if (!img.classList.contains('qrimg')) {
-        img.addEventListener('click', () => {
-          modalImg.src = img.src;
-          modalImg.alt = img.alt || 'Project image preview';
-          modal.classList.add('open');
-          modal.setAttribute('aria-hidden', 'false');
-        });
-      }
+    zoomImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modalImg.alt = img.alt || 'Image preview';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      });
     });
 
     modal.addEventListener('click', () => {
