@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>王滋涵 | 引擎开发与实时渲染作品集</title>
-  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜引擎开发与实时渲染作品集｜Vulkan Engine、OpenGL Engine、Render Graph、UE5 BRDF、VR 实时交互系统" />
+  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜引擎开发与实时渲染作品集｜C++、Vulkan、OpenGL、Render Graph、资源管理、GPU Profiling、UE5 BRDF、XR 实时系统" />
   <style>
     :root {
       --bg: #0b0d12;
@@ -310,6 +310,105 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media(min-width:860px) {
+      .hero-grid {
+        grid-template-columns: 1.15fr .85fr;
+      }
+    }
+
+    .signal-box {
+      border: 1px solid rgba(122, 162, 255, .22);
+      background: rgba(122, 162, 255, .07);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .signal-box strong {
+      color: #edf3ff;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    @media(min-width:720px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .025);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .kpi .num {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent2);
+      margin-bottom: 4px;
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .project-block {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .06);
+      background: rgba(255, 255, 255, .025);
+      border-radius: 12px;
+    }
+
+    .project-block .block-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #dfe7ff;
+      margin-bottom: 6px;
+    }
+
+    .project-block ul {
+      margin-top: 6px;
+    }
+
+    .skill-matrix {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media(min-width:860px) {
+      .skill-matrix {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .skill-col {
+      border: 1px solid var(--line);
+      background: rgba(18, 22, 35, .62);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .skill-col .title {
+      margin-bottom: 8px;
+    }
+
     /* Project Gallery Styles */
     .project-gallery {
       display: flex;
@@ -406,6 +505,7 @@
       </div>
       <nav class="nav">
         <a href="#projects">代表项目</a>
+        <a href="#skills">技能矩阵</a>
         <a href="#deepdives">技术专题</a>
         <a href="#experience">经历</a>
         <a href="#resume">简历</a>
@@ -417,9 +517,10 @@
     <div class="hero">
       <h1>王滋涵（Zihan Wang）</h1>
       <div class="subtitle">
-        RIT 计算机科学硕士｜厦门大学本科｜网易 VR / 阿里 Unity 实习｜RIT MAGIC Spell Studios VR Developer<br />
-        主要求职方向：引擎开发工程师。技术主线覆盖 C++ 引擎模块、Vulkan / OpenGL 渲染管线、资源管理、Render Graph、调试工具与性能分析。<br />
-        相关方向：图形渲染工程师 / 游戏客户端开发 / XR 实时系统开发
+        RIT 计算机科学硕士｜厦门大学数字媒体技术本科｜网易 VR / 阿里 Unity 实习｜RIT MAGIC Spell Studios VR Developer<br />
+        <b>主要求职方向：</b>引擎开发工程师 / 图形渲染工程师 / 游戏客户端底层开发。<br />
+        <b>技术主线：</b>C++ 图形系统、Vulkan / OpenGL 渲染管线、Render Graph、资源生命周期、GPU 调试与性能分析。<br />
+        <b>补充方向：</b>XR 实时交互系统、UE5 渲染模块、3D AI / Neural Rendering。
       </div>
 
       <div class="badges">
@@ -439,16 +540,35 @@
         <a class="btn" href="mailto:zihanwang7@outlook.com">邮箱联系</a>
       </div>
 
-      <div class="note">
-        <b>快速浏览：</b>建议优先查看 Vulkan Engine、OpenGL Engine 与技术专题中的「Vulkan 引擎管线与资源管理」。<br />
-        <b>定位：</b>以引擎开发为主线，重点展示渲染管线、资源生命周期、Render Graph、调试工具、性能分析与实时系统工程能力。
+      <div class="hero-grid">
+        <div class="signal-box">
+          <strong>招聘定位：</strong>面向国内图形渲染、引擎开发、游戏客户端底层与 XR 实时系统岗位。作品集重点证明：不是只做 Demo，而是能围绕渲染管线、资源管理、同步、调试工具和性能分析构建可解释、可扩展的图形系统。
+        </div>
+        <div class="signal-box">
+          <strong>建议浏览顺序：</strong>Vulkan Engine → OpenGL Engine → UE5 BRDF → 技术专题 → 简历 PDF。面试深挖建议从 Vulkan 同步、Render Graph、PBR/IBL、GPU Profiling 和 XR 实时反馈稳定性展开。
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="num">C++ / Vulkan</div>
+          <div class="label">主攻底层图形 API、显式同步、资源生命周期和实时渲染框架。</div>
+        </div>
+        <div class="kpi">
+          <div class="num">Engine Systems</div>
+          <div class="label">关注 Render Graph、Pass 依赖、Material / Shader / Texture 管理和调试工具。</div>
+        </div>
+        <div class="kpi">
+          <div class="num">Profiling</div>
+          <div class="label">使用 GPU 时间戳、RenderDoc / Validation Layer / Unity Profiler 等方式定位问题。</div>
+        </div>
       </div>
     </div>
 
 
     <!-- Projects -->
     <section id="projects">
-      <h2>代表项目｜以引擎开发为主线</h2>
+      <h2>代表项目｜面向图形渲染与引擎开发岗位</h2>
 
       <div class="filters">
         <div class="fbtn active" data-filter="all">全部</div>
@@ -473,11 +593,27 @@
               class="chip">Render Graph</span><span class="chip">PBR / IBL</span><span class="chip">GPU Profiling</span>
           </div>
           <ul>
-            <li>构建基于 Vulkan 1.3 的引擎原型，覆盖 Swapchain、Command Buffer、Descriptor、Pipeline、Dynamic Rendering 与 Synchronization2 等显式图形 API 核心模块。</li>
-            <li>实现 PBR 材质、法线贴图、阴影映射、手写 PCF、HDR、Bloom、Tone Mapping、IBL 预滤波与 BRDF LUT 等实时渲染功能。</li>
-            <li>设计 Render Graph 层，组织渲染 Pass 的读写关系、图像布局转换、临时渲染目标与调试可视化，突出资源生命周期、Barrier 管理和引擎模块边界设计能力。</li>
-            <li>加入 GPU 时间戳分析、场景层级面板、材质参数调试、渲染目标查看等工具，用于定位渲染错误与分析帧耗时。</li>
+            <li>独立构建基于 Vulkan 1.3 的引擎原型，覆盖 Swapchain、Command Buffer、Descriptor、Pipeline、Dynamic Rendering 与 Synchronization2 等显式图形 API 核心模块。</li>
+            <li>实现 PBR 材质、法线贴图、阴影映射、手写 PCF、HDR、Bloom、Tone Mapping、IBL 预滤波与 BRDF LUT，形成完整实时渲染链路。</li>
+            <li>设计 Render Graph 层，使用 Pass 读写声明组织渲染流程，统一管理图像布局转换、临时渲染目标、资源生命周期与 Barrier 生成。</li>
+            <li>加入 GPU 时间戳、场景层级、材质参数调试、渲染目标查看等工具，用于定位渲染错误、分析 Pass 耗时和验证资源状态。</li>
           </ul>
+          <div class="project-block">
+            <div class="block-title">工程难点</div>
+            <ul>
+              <li>Vulkan 显式同步复杂，需要协调 pipeline stage、access mask、image layout 与多帧并行资源状态。</li>
+              <li>Descriptor、Buffer、Image 与临时渲染目标的生命周期必须与帧资源和 Render Graph 依赖关系一致。</li>
+              <li>在 PBR、阴影、后处理和调试视图之间组织清晰的 Pass 边界，避免渲染功能堆叠成不可维护的 Demo。</li>
+            </ul>
+          </div>
+          <div class="project-block">
+            <div class="block-title">可深挖点</div>
+            <ul>
+              <li>Synchronization2 / Image Layout Transition / Barrier 管理</li>
+              <li>Render Graph 资源读写声明、临时资源分配与调试可视化</li>
+              <li>PBR + IBL 管线、BRDF LUT、HDR / Bloom / Tone Mapping</li>
+            </ul>
+          </div>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/VulkanEngine" target="_blank" rel="noopener">代码仓库 / README</a>
           </div>
@@ -499,9 +635,16 @@
           </div>
           <ul>
             <li>构建模块化 OpenGL 渲染引擎，覆盖场景组织、Shader/Material 管理、纹理资源、光照、阴影、HDR 与后处理流程。</li>
-            <li>实现 PBR、Shadow Mapping、Framebuffer 后处理、Tone Mapping 与基础调试流程，训练从 CPU 提交到 GPU 渲染的完整管线理解。</li>
-            <li>扩展光线追踪与超采样实验，用于对比实时光栅化与离线渲染中的采样、阴影和反射效果。</li>
+            <li>实现 PBR、Shadow Mapping、Framebuffer 后处理、Tone Mapping 与基础调试流程，建立从 CPU 资源提交到 GPU 渲染输出的完整管线理解。</li>
+            <li>扩展光线追踪与超采样实验，用于对比实时光栅化与离线渲染中的采样、阴影、反射和噪声收敛问题。</li>
           </ul>
+          <div class="project-block">
+            <div class="block-title">工程价值</div>
+            <ul>
+              <li>作为 Vulkan Engine 前置项目，系统训练 Shader、Material、Texture、Framebuffer 和 Post-process 的模块边界设计。</li>
+              <li>通过实时光栅化与离线光线追踪对比，建立对渲染方程、采样、阴影质量和性能开销的统一理解。</li>
+            </ul>
+          </div>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/CGRenderEngine" target="_blank" rel="noopener">代码/仓库</a>
           </div>
@@ -527,6 +670,13 @@
             <li>编写 Monte Carlo 积分工具生成 BRDF 补偿 LUT，并在 UE5 中通过自定义 HLSL 节点接入材质流程。</li>
             <li>对比 baseline GGX 与补偿后的材质表现，梳理 Fresnel、NDF、Geometry Term、split-sum 与 LUT 查表之间的工程关系。</li>
           </ul>
+          <div class="project-block">
+            <div class="block-title">面试价值</div>
+            <ul>
+              <li>能从渲染方程、微表面 BRDF、能量守恒和实时查表优化角度解释 PBR 模块，而不是只停留在材质效果展示。</li>
+              <li>适合深挖 Monte Carlo 积分、LUT 预计算、split-sum approximation 与 UE 材质系统接入方式。</li>
+            </ul>
+          </div>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/KullaContyBRDF" target="_blank" rel="noopener">代码/仓库</a>
             <a class="btn"
@@ -551,10 +701,17 @@
             <span class="chip">Unity</span><span class="chip">Meta SDK</span><span class="chip">Face Tracking</span>
           </div>
           <ul>
-            <li>构建基于 Meta Quest Pro 面部追踪的 VR 实验系统，将用户表情映射到虚拟角色并用于恐怖谷感知研究。</li>
-            <li>引入平滑滤波、同步控制、眼部微动与材质/噪声变量，降低追踪抖动和表情不自然带来的负面感知。</li>
-            <li>项目体现 XR 交互、实时角色驱动、用户实验设计与 Unity 工程实现能力。</li>
+            <li>构建基于 Meta Quest Pro 面部追踪的 VR 实验系统，将用户表情实时映射到虚拟角色，用于研究表情真实度、噪声与恐怖谷感知之间的关系。</li>
+            <li>引入平滑滤波、状态同步、眼部微动与材质/噪声变量，降低 tracking 抖动、输入丢失和表情不连续带来的负面感知。</li>
+            <li>项目体现 XR 交互、实时角色驱动、用户实验设计、Unity 工程实现和实时反馈稳定性处理能力。</li>
           </ul>
+          <div class="project-block">
+            <div class="block-title">工程难点</div>
+            <ul>
+              <li>VR 输入数据存在抖动、丢帧和不连续，需要在低延迟反馈与平滑稳定之间做权衡。</li>
+              <li>面部 tracking、角色表情映射、眼部微动和材质变量需要在统一实验流程中保持可控，避免变量混杂。</li>
+            </ul>
+          </div>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/UncannyValleyVR" target="_blank" rel="noopener">代码/仓库</a>
             <a class="btn" href="https://youtu.be/_U8bSjyNTWg" target="_blank" rel="noopener">演示视频</a>
@@ -583,6 +740,13 @@
             <li>结合感知损失与重投影一致性约束，提高多视角渲染下的结构保持和时序一致性。</li>
             <li>作为 3D AI / neural rendering 项目补充图形主线，展示 PyTorch、CV 与实时 3D 表示的结合能力。</li>
           </ul>
+          <div class="project-block">
+            <div class="block-title">与岗位的关联</div>
+            <ul>
+              <li>补充展示 neural rendering、可微/学习式视觉方法与实时 3D 表示的理解。</li>
+              <li>适合投递 3D AI、AIGC、NeRF/3DGS、视觉与图形交叉方向时作为加分项目。</li>
+            </ul>
+          </div>
           <div class="links">
             <a class="btn" href="https://github.com/ZihanWG/3DStyle_Transfer_3DGS" target="_blank"
               rel="noopener">代码/仓库</a>
@@ -599,6 +763,43 @@
 
     </section>
 
+    <!-- Skill Matrix -->
+    <section id="skills">
+      <h2>岗位能力矩阵｜国内招聘关键词对齐</h2>
+      <div class="skill-matrix">
+        <div class="skill-col">
+          <div class="title">引擎 / 图形系统</div>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">Vulkan</span><span class="chip">OpenGL</span><span class="chip">Render Graph</span>
+          </div>
+          <ul>
+            <li>渲染管线封装、Pass 组织、资源生命周期、Descriptor / Buffer / Image 管理。</li>
+            <li>Shader / Material / Texture / Framebuffer 模块拆分与调试工具接入。</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <div class="title">实时渲染 / 性能分析</div>
+          <div class="chips">
+            <span class="chip">PBR</span><span class="chip">IBL</span><span class="chip">Shadow Mapping</span><span class="chip">GPU Profiling</span>
+          </div>
+          <ul>
+            <li>直接光照、阴影、HDR、Bloom、Tone Mapping、BRDF LUT 与后处理链路。</li>
+            <li>使用 GPU timestamp、RenderDoc、Validation Layer 和 Profiler 定位渲染错误与性能瓶颈。</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <div class="title">实时交互 / 工程落地</div>
+          <div class="chips">
+            <span class="chip">Unity</span><span class="chip">UE5</span><span class="chip">OpenXR</span><span class="chip">Meta SDK</span>
+          </div>
+          <ul>
+            <li>VR tracking、状态同步、输入滤波、角色驱动和低延迟反馈稳定性处理。</li>
+            <li>具备网易 VR、阿里 Unity 与 RIT MAGIC Spell Studios 项目/实习经历。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- Technical Deep Dives -->
     <section id="deepdives">
       <h2>技术专题｜引擎开发能力拆解</h2>
@@ -607,7 +808,8 @@
           <div class="title">Vulkan 引擎管线与资源管理</div>
           <div class="meta">Dynamic Rendering / Sync2 / Image Layout / Descriptor / VMA</div>
           <ul>
-            <li>重点关注显式 API 中资源创建、上传、布局转换、同步与销毁的完整生命周期。</li>
+            <li>重点关注显式 API 中资源创建、上传、布局转换、同步、使用和销毁的完整生命周期。</li>
+            <li>围绕 Image Layout Transition、Synchronization2、Descriptor 更新和多帧资源组织建立可解释的调试路径。</li>
             <li>通过调试面板和 GPU 时间戳分析定位渲染错误、Pass 耗时和资源状态问题。</li>
           </ul>
         </div>
@@ -615,8 +817,9 @@
           <div class="title">Render Graph 与渲染 Pass 组织</div>
           <div class="meta">Pass Dependency / Resource Lifetime / Barrier Management</div>
           <ul>
-            <li>使用 Pass 读写声明组织渲染流程，减少手写状态切换带来的错误。</li>
-            <li>强调资源生命周期、临时渲染目标、Pass 边界和调试可视化，贴近真实引擎架构问题。</li>
+            <li>使用 Pass 读写声明组织渲染流程，减少手写状态切换和手动 Barrier 管理带来的错误。</li>
+            <li>强调资源生命周期、临时渲染目标、Pass 边界、依赖关系和调试可视化，贴近真实引擎架构问题。</li>
+            <li>可用于解释 Forward / Deferred / Post-process 等不同渲染阶段如何纳入统一执行图。</li>
           </ul>
         </div>
         <div class="card">
@@ -655,8 +858,8 @@
           <div class="title">网易（广州）｜VR 开发实习生</div>
           <div class="meta">2023.03 – 2023.08</div>
           <ul>
-            <li>基于 Unity + Meta Quest 开发 VR 交互系统与核心玩法 Demo。</li>
-            <li>参与渲染与交互性能优化，在内部测试场景中降低明显掉帧并改善运行稳定性。</li>
+            <li>基于 Unity + Meta Quest 开发 VR 交互系统与核心玩法 Demo，参与输入、交互反馈和场景逻辑实现。</li>
+            <li>使用 Unity Profiler 和运行时调试手段排查渲染、脚本与交互链路中的性能问题，在内部测试场景中降低明显掉帧并改善运行稳定性。</li>
           </ul>
         </div>
 
@@ -664,8 +867,8 @@
           <div class="title">阿里巴巴（杭州）｜Unity 游戏开发实习生</div>
           <div class="meta">2022.06 – 2022.08</div>
           <ul>
-            <li>参与 Unity 游戏核心系统与玩法模块开发，负责背包系统和资源管理相关功能。</li>
-            <li>优化数据组织与查询逻辑，改善资源管理模块的内存占用和运行效率。</li>
+            <li>参与 Unity 游戏核心系统与玩法模块开发，负责背包系统、配置读取和资源管理相关功能。</li>
+            <li>优化数据组织、查询逻辑和资源引用方式，改善资源管理模块的内存占用、访问效率和可维护性。</li>
           </ul>
         </div>
       </div>
@@ -677,12 +880,13 @@
       <div class="card">
         <h3>王滋涵 · Zihan Wang</h3>
         <p>
-          计算机科学硕士，主要求职方向为引擎开发。项目经验覆盖 Vulkan / OpenGL 引擎原型、Render Graph、资源管理、GPU 调试与性能分析、UE5 渲染模块、VR 实时交互系统与 3DGS 风格迁移。
+          计算机科学硕士，主要求职方向为引擎开发与图形渲染。项目经验覆盖 Vulkan / OpenGL 引擎原型、Render Graph、资源管理、GPU 调试与性能分析、UE5 渲染模块、VR 实时交互系统与 3DGS 风格迁移。作品集重点展示从底层图形 API、渲染管线组织到实时系统稳定性的工程能力。
         </p>
         <ul>
+          <li><b>目标岗位：</b>引擎开发工程师、图形渲染工程师、游戏客户端底层开发工程师、XR 实时系统工程师。</li>
           <li><b>核心方向：</b>引擎开发、实时渲染、渲染管线、图形系统、实时 3D 应用。</li>
           <li><b>核心技术：</b>C++、Vulkan、OpenGL、GLSL/HLSL、Unreal Engine 5、Unity、Meta SDK、OpenXR。</li>
-          <li><b>工程能力：</b>资源管理、渲染 Pass 组织、调试工具、GPU profiling、性能分析、实时系统稳定性。</li>
+          <li><b>工程能力：</b>资源管理、Render Graph、渲染 Pass 组织、调试工具、GPU profiling、性能分析、实时系统稳定性。</li>
           <li><b>教育背景：</b>RIT 计算机科学硕士；厦门大学数字媒体技术本科。</li>
         </ul>
         <div class="links">
@@ -709,6 +913,7 @@
 
         <div class="card">
           <div class="title">微信二维码</div>
+          <div class="meta">添加请备注：招聘 / 岗位名称</div>
           <div style="margin-top:10px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
             <img src="assets/wechat.jpg" alt="WeChat QR" class="qrimg" title="WeChat QR" />
           </div>
