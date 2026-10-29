@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>王滋涵 | 引擎开发与实时渲染作品集</title>
-  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜引擎开发与实时渲染作品集｜C++、Vulkan、OpenGL、Render Graph、资源管理、GPU Profiling、UE5 BRDF、XR 实时系统" />
+  <meta name="description" content="王滋涵（Zihan Wang）｜RIT CS 硕士｜引擎开发与实时渲染作品集｜C++20、Vulkan 1.3、GPU-Driven、Render Graph、Async Compute、VSM、Ray Query、UE5 Path Tracer 源码修改、UE5 BRDF、XR 实时系统" />
   <style>
     :root {
       --bg: #0b0d12;
@@ -538,18 +538,19 @@
       <div class="subtitle">
         RIT 计算机科学硕士（2026 届）｜厦门大学数字媒体技术本科｜网易 VR / 阿里 Unity 实习｜前 RIT MAGIC Spell Studios VR Developer<br />
         <b>主要求职方向（已毕业，可立即入职）：</b>引擎开发工程师 / 图形渲染工程师 / 游戏客户端底层开发。<br />
-        <b>技术主线：</b>C++ 图形系统、Vulkan / OpenGL 渲染管线、Render Graph、资源生命周期、GPU 调试与性能分析。<br />
-        <b>补充方向：</b>XR 实时交互系统、UE5 渲染模块、3D AI / Neural Rendering。
+        <b>技术主线：</b>C++20 / Vulkan 1.3 实时渲染器（GPU-Driven、Render Graph、Async Compute、多路径阴影）、UE5 引擎源码修改、GPU 性能测量与工程化。<br />
+        <b>补充方向：</b>XR 实时交互系统、3D AI / Neural Rendering、CUDA。
       </div>
 
       <div class="badges">
-        <span class="badge">C++ 引擎开发</span>
-        <span class="badge">Vulkan / OpenGL</span>
-        <span class="badge">Render Graph / Resource Management</span>
-        <span class="badge">GPU Profiling / Debug Tools</span>
-        <span class="badge">Unreal Engine 5 / Unity</span>
+        <span class="badge">C++20 引擎开发</span>
+        <span class="badge">Vulkan 1.3 / OpenGL</span>
+        <span class="badge">GPU-Driven / Hi-Z 剔除</span>
+        <span class="badge">Render Graph / Async Compute</span>
+        <span class="badge">CSM / VSM / Ray Query</span>
+        <span class="badge">UE5 源码 / Path Tracer</span>
+        <span class="badge">GPU Profiling / CI</span>
         <span class="badge">OpenXR / Meta SDK</span>
-        <span class="badge">PyTorch / OpenCV</span>
       </div>
 
       <div class="cta">
@@ -561,25 +562,25 @@
 
       <div class="hero-grid">
         <div class="signal-box">
-          <strong>招聘定位：</strong>面向国内图形渲染、引擎开发、游戏客户端底层与 XR 实时系统岗位。作品集重点证明：不是只做 Demo，而是能围绕渲染管线、资源管理、同步、调试工具和性能分析构建可解释、可扩展的图形系统。
+          <strong>招聘定位：</strong>面向国内图形渲染、引擎开发、游戏客户端底层与 XR 实时系统岗位。作品集重点证明：不是只做 Demo，而是能围绕 GPU-Driven 管线、Render Graph、同步、阴影方案和可复现的性能测量构建可解释、可验证的图形系统。
         </div>
         <div class="signal-box">
-          <strong>建议浏览顺序：</strong>Vulkan Engine → OpenGL Engine → UE5 BRDF → 技术专题 → 简历 PDF。面试深挖建议从 Vulkan 同步、Render Graph、PBR/IBL、GPU Profiling 和 XR 实时反馈稳定性展开。
+          <strong>建议浏览顺序：</strong>Vulkan Engine → UE5 Path Tracer AOV → UE5 BRDF → OpenGL Engine → 技术专题 → 简历 PDF。面试深挖建议从 GPU-Driven 剔除、Render Graph 与 Async Compute、阴影方案取舍、Path Tracer 采样与正确性验证展开。
         </div>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi">
-          <div class="num">C++ / Vulkan</div>
-          <div class="label">主攻底层图形 API、显式同步、资源生命周期和实时渲染框架。</div>
+          <div class="num">~6 万行</div>
+          <div class="label">独立开发的 C++20 / Vulkan 1.3 实时渲染器，RAII 封装 RHI，三平台 CI。</div>
         </div>
         <div class="kpi">
-          <div class="num">Engine Systems</div>
-          <div class="label">关注 Render Graph、Pass 依赖、Material / Shader / Texture 管理和调试工具。</div>
+          <div class="num">3.78 ms</div>
+          <div class="label">Sponza 1080p 整帧耗时（RTX 3080 Ti Laptop），自建 per-pass timestamp profiler 测量。</div>
         </div>
         <div class="kpi">
-          <div class="num">Profiling</div>
-          <div class="label">使用 GPU 时间戳、RenderDoc / Validation Layer / Unity Profiler 等方式定位问题。</div>
+          <div class="num">6.07 → 0.33 ms</div>
+          <div class="label">曝光 pass 优化（直方图 + LDS 归约），按 A/B 测量协议对比。</div>
         </div>
       </div>
     </div>
@@ -604,19 +605,21 @@
           <div class="project-wide-main">
             <div class="cardhead">
               <div>
-                <div class="title">Vulkan 引擎原型 / 实时渲染器（Vulkan Engine）</div>
-                <div class="meta">角色：引擎开发者｜关键词：Vulkan 1.3、资源管理、Dynamic Rendering、Sync2、Render Graph、GPU Profiling</div>
+                <div class="title">Vulkan 实时渲染器（VulkanEngine）</div>
+                <div class="meta">角色：独立开发｜2025.09 – 至今｜关键词：GPU-Driven、Hi-Z 剔除、Clustered Forward+、Async Compute、CSM / VSM / Ray Query、Render Graph</div>
               </div>
             </div>
             <div class="chips">
               <span class="chip">C++20</span><span class="chip">Vulkan 1.3</span><span class="chip">GLSL</span><span
-                class="chip">Render Graph</span><span class="chip">PBR / IBL</span><span class="chip">GPU Profiling</span>
+                class="chip">GPU-Driven</span><span class="chip">Render Graph</span><span class="chip">Async Compute</span><span
+                class="chip">VSM</span><span class="chip">Ray Query</span>
             </div>
             <ul>
-              <li>独立构建基于 Vulkan 1.3 的引擎原型，覆盖 Swapchain、Command Buffer、Descriptor、Pipeline、Dynamic Rendering 与 Synchronization2 等显式图形 API 核心模块。</li>
-              <li>实现 PBR 材质、法线贴图、阴影映射、手写 PCF、HDR、Bloom、Tone Mapping、IBL 预滤波与 BRDF LUT，形成完整实时渲染链路。</li>
-              <li>设计 Render Graph 层，使用 Pass 读写声明组织渲染流程，统一管理图像布局转换、临时渲染目标、资源生命周期与 Barrier 生成。</li>
-              <li>加入 GPU 时间戳、场景层级、材质参数调试、渲染目标查看等工具，用于定位渲染错误、分析 Pass 耗时和验证资源状态。</li>
+              <li>约 6 万行自有代码，基于 Dynamic Rendering、Synchronization2、VMA 构建 RAII 封装的 RHI 层。</li>
+              <li><b>GPU-Driven：</b>Bindless 材质 + Multi-Draw Indirect，Compute 视锥剔除与两阶段 Hi-Z 遮挡剔除，在同一 dispatch 内完成离线 LOD 链选择。</li>
+              <li><b>光照与阴影：</b>Clustered Forward+（32 × 18 × 24 froxel）跑在 Async Compute 队列上，与阴影 pass 重叠；实现带缓存的 CSM、Virtual Shadow Maps（LRU 页表）与 VK_KHR_ray_query 光追阴影三条阴影路径。</li>
+              <li><b>Render Graph：</b>由 pass 读写声明推导执行顺序、自动生成 Barrier、管理瞬态资源与生命周期，每帧校验实际录制与声明一致。</li>
+              <li><b>性能与工程：</b>自建 per-pass timestamp profiler 与 A/B 测量协议；曝光 pass 6.07 → 0.33 ms（直方图 + LDS 归约）；Sponza 1080p 整帧 3.78 ms（RTX 3080 Ti Laptop）；Catch2 + 三平台 CI（ASan/UBSan、lavapipe 图像回归）。</li>
             </ul>
             <div class="links">
               <a class="btn" href="https://github.com/ZihanWG/VulkanEngine" target="_blank" rel="noopener">代码仓库 / README</a>
@@ -624,9 +627,10 @@
             <div class="project-block">
               <div class="block-title">可深挖点</div>
               <ul>
-                <li>Synchronization2 / Image Layout Transition / Barrier 管理</li>
-                <li>Render Graph 资源读写声明、临时资源分配与调试可视化</li>
-                <li>PBR + IBL 管线、BRDF LUT、HDR / Bloom / Tone Mapping</li>
+                <li>两阶段 Hi-Z 遮挡剔除、Compute 视锥剔除与 LOD 选择合并在同一 dispatch</li>
+                <li>Render Graph 执行顺序推导、自动 Barrier、瞬态资源与每帧录制校验</li>
+                <li>Clustered Forward+ 与阴影 pass 在 Async Compute 上的重叠</li>
+                <li>CSM / VSM / Ray Query 三条阴影路径的质量、显存与性能取舍</li>
               </ul>
             </div>
           </div>
@@ -637,11 +641,40 @@
             <div class="project-block">
               <div class="block-title">工程难点</div>
               <ul>
-                <li>Vulkan 显式同步复杂，需要协调 pipeline stage、access mask、image layout 与多帧并行资源状态。</li>
-                <li>Descriptor、Buffer、Image 与临时渲染目标的生命周期必须与帧资源和 Render Graph 依赖关系一致。</li>
-                <li>在 PBR、阴影、后处理和调试视图之间组织清晰的 Pass 边界，避免渲染功能堆叠成不可维护的 Demo。</li>
+                <li>剔除与 LOD 选择移到 GPU 后，CPU 不再逐物体提交，需要保证间接绘制参数、可见性数据与 Hi-Z 两阶段之间的正确性。</li>
+                <li>Async Compute 与图形队列并行，需要 Render Graph 正确表达跨队列依赖与同步。</li>
+                <li>三条阴影路径共存且可切换，便于在同一场景下对比质量、显存和耗时。</li>
+                <li>性能结论依据 per-pass 时间戳和 A/B 测量协议，并用 CI 图像回归防止优化引入画面错误。</li>
               </ul>
             </div>
+          </div>
+        </div>
+
+        <!-- UE5 Path Tracer ShadowMask AOV -->
+        <div class="card project" data-tags="engine,graphics">
+          <div class="cardhead">
+            <div>
+              <div class="title">UE5 Path Tracer 软边 ShadowMask AOV（引擎源码修改）</div>
+              <div class="meta">角色：核心实现｜2026｜关键词：UE 5.7.4 源码、Path Tracer、面光源可见性、Sobol、TLAS、Movie Render Queue</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">C++</span><span class="chip">HLSL</span><span class="chip">UE 5.7.4</span><span
+              class="chip">Path Tracing</span><span class="chip">Movie Render Queue</span>
+          </div>
+          <ul>
+            <li>修改 UE 5.7.4 渲染链路，在 Path Tracer 首次弹射处对指定光源做面光源可见性采样，复用引擎的 Sobol 采样器与 TLAS shadow ray。</li>
+            <li>与 Beauty 共享样本累积，经 Movie Render Queue 输出线性 EXR；功能关闭时零开销。</li>
+            <li>自定义光源 ID 贯通 LightComponent → SceneProxy；配置错误时输出全无效 mask，而不是一张看似正常的错图。</li>
+            <li>验证脚本显示 RMSE 约按 1/√N 收敛，重复渲染结果 SHA-256 一致。</li>
+          </ul>
+          <div class="project-block">
+            <div class="block-title">可深挖点</div>
+            <ul>
+              <li>UE 渲染数据流：LightComponent → SceneProxy → Path Tracer shader 的改动路径。</li>
+              <li>为什么在首次弹射采样、与 Beauty 共享样本累积，以及如何保证关闭时零开销。</li>
+              <li>如何证明结果正确：收敛曲线 + 确定性哈希，以及配置错误时“宁可无效、不出错图”的设计。</li>
+            </ul>
           </div>
         </div>
 
@@ -650,14 +683,15 @@
           <div class="cardhead">
             <div>
               <div class="title">OpenGL 模块化渲染引擎（CGRenderEngine）</div>
-              <div class="meta">角色：引擎开发者｜关键词：OpenGL、Shader/Material 系统、资源管理、PBR、阴影、HDR、后处理</div>
+              <div class="meta">角色：引擎开发者｜2024.01 – 2024.08｜关键词：OpenGL、Shader/Material 系统、实例化、状态排序、PBR、阴影、HDR</div>
             </div>
           </div>
           <div class="chips">
             <span class="chip">C++</span><span class="chip">OpenGL</span><span class="chip">GLSL</span><span class="chip">PBR</span><span class="chip">HDR</span>
           </div>
           <ul>
-            <li>构建模块化 OpenGL 渲染引擎，覆盖场景组织、Shader/Material 管理、纹理资源、光照、阴影、HDR 与后处理流程。</li>
+            <li>从零构建模块化 OpenGL 渲染引擎（PBR、阴影、HDR、Bloom、后处理），Scene 与渲染数据解耦。</li>
+            <li>实例化 + 状态排序使 233 物体场景 draw call 从 442 降到 35（−92%）。</li>
             <li>实现 PBR、Shadow Mapping、Framebuffer 后处理、Tone Mapping 与基础调试流程，建立从 CPU 资源提交到 GPU 渲染输出的完整管线理解。</li>
             <li>扩展光线追踪与超采样实验，用于对比实时光栅化与离线渲染中的采样、阴影、反射和噪声收敛问题。</li>
           </ul>
@@ -681,7 +715,7 @@
           <div class="cardhead">
             <div>
               <div class="title">UE5 渲染模块：多次散射 BRDF 能量补偿（Kulla–Conty）</div>
-              <div class="meta">角色：渲染模块实现者｜关键词：PBR 模块、能量守恒、GGX、Monte Carlo、LUT、HLSL</div>
+              <div class="meta">角色：核心实现｜2025.01 – 2025.05｜关键词：PBR 模块、能量守恒、GGX、Monte Carlo、LUT、白炉测试、HLSL</div>
             </div>
           </div>
           <div class="chips">
@@ -690,7 +724,7 @@
           </div>
           <ul>
             <li>基于 Kulla–Conty 多次散射思想实现 BRDF 能量补偿，改善高粗糙度 GGX 材质在单次散射模型下的能量损失问题。</li>
-            <li>编写 Monte Carlo 积分工具生成 BRDF 补偿 LUT，并在 UE5 中通过自定义 HLSL 节点接入材质流程。</li>
+            <li>编写 Monte Carlo 积分工具生成 BRDF 补偿 LUT，以白炉测试验证能量守恒，并在 UE5 中通过自定义 HLSL 节点接入材质流程。</li>
             <li>对比 baseline GGX 与补偿后的材质表现，梳理 Fresnel、NDF、Geometry Term、split-sum 与 LUT 查表之间的工程关系。</li>
           </ul>
           <div class="project-block">
@@ -717,7 +751,7 @@
           <div class="cardhead">
             <div>
               <div class="title">VR 实时交互系统：恐怖谷效应实验（Uncanny Valley VR）</div>
-              <div class="meta">角色：VR 技术负责人｜关键词：Meta Quest Pro、面部追踪、表情映射、滤波、同步</div>
+              <div class="meta">角色：VR 技术负责人｜2024.09 – 2024.12｜关键词：Meta Quest Pro、面部追踪、表情映射、自适应 EMA、同步</div>
             </div>
           </div>
           <div class="chips">
@@ -725,7 +759,7 @@
           </div>
           <ul>
             <li>构建基于 Meta Quest Pro 面部追踪的 VR 实验系统，将用户表情实时映射到虚拟角色，用于研究表情真实度、噪声与恐怖谷感知之间的关系。</li>
-            <li>引入平滑滤波、状态同步、眼部微动与材质/噪声变量，降低 tracking 抖动、输入丢失和表情不连续带来的负面感知。</li>
+            <li>用自适应 EMA 平滑 + 追踪丢失时状态保持建立稳定基线，再注入可控的表情噪声、眼部微动与材质变量，降低 tracking 抖动、输入丢失和表情不连续带来的干扰。</li>
             <li>项目体现 XR 交互、实时角色驱动、用户实验设计、Unity 工程实现和实时反馈稳定性处理能力。</li>
           </ul>
           <div class="project-block">
@@ -750,18 +784,18 @@
         <div class="card project" data-tags="ai,graphics">
           <div class="cardhead">
             <div>
-              <div class="title">实时 3D 风格迁移（3DGS Style Transfer）</div>
-              <div class="meta">角色：项目负责人｜关键词：Neural Rendering、时序一致性、LPIPS、重投影一致性</div>
+              <div class="title">基于 3DGS 的 3D 风格迁移（3DGS Style Transfer）</div>
+              <div class="meta">角色：项目负责人｜2025.09 – 2025.12｜关键词：3D Gaussian Splatting、SH 外观优化、NNFM、LPIPS、多视角一致性</div>
             </div>
           </div>
           <div class="chips">
             <span class="chip">PyTorch</span><span class="chip">3D Gaussian Splatting</span><span
-              class="chip">LPIPS</span>
+              class="chip">NNFM</span><span class="chip">LPIPS</span>
           </div>
           <ul>
-            <li>构建面向 3D Gaussian Splatting 场景的实时风格迁移管线，重点解决跨视角风格不稳定与时间闪烁问题。</li>
-            <li>结合感知损失与重投影一致性约束，提高多视角渲染下的结构保持和时序一致性。</li>
-            <li>作为 3D AI / neural rendering 项目补充图形主线，展示 PyTorch、CV 与实时 3D 表示的结合能力。</li>
+            <li>冻结 3DGS 几何，只优化球谐（SH）外观参数，在保持场景结构的前提下完成风格迁移。</li>
+            <li>以 NNFM 为基线，集成 LPIPS 感知损失，并加入双视角统计一致性约束，缓解跨视角风格不一致。</li>
+            <li>对比三组实验的效果与开销；作为 3D AI / neural rendering 项目补充图形主线。</li>
           </ul>
           <div class="project-block">
             <div class="block-title">与岗位的关联</div>
@@ -781,6 +815,27 @@
           </div>
         </div>
 
+        <!-- Other -->
+        <div class="card project" data-tags="engine,graphics">
+          <div class="cardhead">
+            <div>
+              <div class="title">其他项目与论文</div>
+              <div class="meta">CUDA 优化 / 游戏开发 / 学术论文</div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">CUDA</span><span class="chip">Unreal Engine</span>
+          </div>
+          <ul>
+            <li><b>CUDA Kernels：</b>手写 SGEMM 逐级优化，FlashAttention 进行中。</li>
+            <li><b>Horror Hotel：</b>Unreal 恐怖解谜游戏，担任主程。</li>
+            <li><b>论文：</b>《视觉界面对游戏心流体验的影响》。</li>
+          </ul>
+          <div class="links">
+            <a class="btn" href="https://github.com/ZihanWG/cuda-kernels" target="_blank" rel="noopener">CUDA Kernels 仓库</a>
+          </div>
+        </div>
+
       </div>
 
 
@@ -793,31 +848,33 @@
         <div class="skill-col">
           <div class="title">引擎 / 图形系统</div>
           <div class="chips">
-            <span class="chip">C++</span><span class="chip">Vulkan</span><span class="chip">OpenGL</span><span class="chip">Render Graph</span>
+            <span class="chip">C++20</span><span class="chip">Vulkan 1.3</span><span class="chip">OpenGL</span><span class="chip">Render Graph</span><span class="chip">UE5 源码</span>
           </div>
           <ul>
-            <li>渲染管线封装、Pass 组织、资源生命周期、Descriptor / Buffer / Image 管理。</li>
-            <li>Shader / Material / Texture / Framebuffer 模块拆分与调试工具接入。</li>
+            <li>RAII 封装的 RHI 层、Dynamic Rendering、Synchronization2、VMA 资源管理。</li>
+            <li>Render Graph 执行顺序推导、自动 Barrier、瞬态资源与生命周期管理。</li>
+            <li>UE5 渲染链路源码修改（LightComponent → SceneProxy → Path Tracer）、Movie Render Queue。</li>
           </ul>
         </div>
         <div class="skill-col">
-          <div class="title">实时渲染 / 性能分析</div>
+          <div class="title">实时渲染技术</div>
           <div class="chips">
-            <span class="chip">PBR</span><span class="chip">IBL</span><span class="chip">Shadow Mapping</span><span class="chip">GPU Profiling</span>
+            <span class="chip">GPU-Driven</span><span class="chip">Hi-Z</span><span class="chip">Clustered Forward+</span><span class="chip">CSM / VSM</span><span class="chip">Ray Query</span>
           </div>
           <ul>
-            <li>直接光照、阴影、HDR、Bloom、Tone Mapping、BRDF LUT 与后处理链路。</li>
-            <li>使用 GPU timestamp、RenderDoc、Validation Layer 和 Profiler 定位渲染错误与性能瓶颈。</li>
+            <li>Bindless + MDI、Compute 视锥 / Hi-Z 遮挡剔除、GPU LOD 选择、Async Compute。</li>
+            <li>PBR、IBL、TAA、CSM、Virtual Shadow Maps、Ray Query / Path Tracing。</li>
           </ul>
         </div>
         <div class="skill-col">
-          <div class="title">实时交互 / 工程落地</div>
+          <div class="title">调试 / 性能 / 工程化</div>
           <div class="chips">
-            <span class="chip">Unity</span><span class="chip">UE5</span><span class="chip">OpenXR</span><span class="chip">Meta SDK</span>
+            <span class="chip">Sync Validation</span><span class="chip">GPU Timestamp</span><span class="chip">CI</span><span class="chip">ASan / UBSan</span>
           </div>
           <ul>
-            <li>VR tracking、状态同步、输入滤波、角色驱动和低延迟反馈稳定性处理。</li>
-            <li>具备网易 VR、阿里 Unity 与 RIT MAGIC Spell Studios 项目/实习经历。</li>
+            <li>Validation Layer（含 Sync Validation）、per-pass GPU timestamp profiling、Unity Profiler。</li>
+            <li>Git、CMake、GitHub Actions、Catch2、ASan/UBSan、clang-tidy。</li>
+            <li>XR：Meta SDK、OpenXR、ARCore/ARKit；网易 VR、阿里 Unity 与 RIT MAGIC Spell Studios 经历。</li>
           </ul>
         </div>
       </div>
@@ -828,36 +885,51 @@
       <h2>技术专题｜引擎开发能力拆解</h2>
       <div class="grid">
         <div class="card">
-          <div class="title">Vulkan 引擎管线与资源管理</div>
-          <div class="meta">Dynamic Rendering / Sync2 / Image Layout / Descriptor / VMA</div>
+          <div class="title">GPU-Driven 渲染与遮挡剔除</div>
+          <div class="meta">Bindless / Multi-Draw Indirect / Compute Culling / Hi-Z / LOD</div>
           <ul>
-            <li>重点关注显式 API 中资源创建、上传、布局转换、同步、使用和销毁的完整生命周期。</li>
-            <li>围绕 Image Layout Transition、Synchronization2、Descriptor 更新和多帧资源组织建立可解释的调试路径。</li>
-            <li>通过调试面板和 GPU 时间戳分析定位渲染错误、Pass 耗时和资源状态问题。</li>
+            <li>Bindless 材质 + MDI 让 CPU 不再逐物体提交 draw call。</li>
+            <li>Compute 视锥剔除、两阶段 Hi-Z 遮挡剔除与离线 LOD 链选择在同一 dispatch 内完成。</li>
           </ul>
         </div>
         <div class="card">
-          <div class="title">Render Graph 与渲染 Pass 组织</div>
-          <div class="meta">Pass Dependency / Resource Lifetime / Barrier Management</div>
+          <div class="title">Render Graph 与 Async Compute</div>
+          <div class="meta">Pass Dependency / Auto Barrier / Transient Resources / Multi-Queue</div>
           <ul>
-            <li>使用 Pass 读写声明组织渲染流程，减少手写状态切换和手动 Barrier 管理带来的错误。</li>
-            <li>强调资源生命周期、临时渲染目标、Pass 边界、依赖关系和调试可视化，贴近真实引擎架构问题。</li>
-            <li>可用于解释 Forward / Deferred / Post-process 等不同渲染阶段如何纳入统一执行图。</li>
+            <li>由 pass 读写声明推导执行顺序，自动生成 Barrier，管理瞬态资源与生命周期。</li>
+            <li>每帧校验实际录制与声明一致，避免图与命令不同步。</li>
+            <li>Clustered Forward+ 跑在 Async Compute 队列上，与阴影 pass 重叠执行。</li>
           </ul>
         </div>
         <div class="card">
-          <div class="title">渲染模块：PBR 与实时光照</div>
-          <div class="meta">GGX / Fresnel / Shadow Mapping / IBL / Tone Mapping</div>
+          <div class="title">阴影方案对比</div>
+          <div class="meta">Cached CSM / Virtual Shadow Maps / VK_KHR_ray_query</div>
           <ul>
-            <li>实现从直接光照、阴影、法线贴图到 HDR、Bloom、IBL 的实时渲染链路。</li>
-            <li>通过 UE5 BRDF 项目进一步理解单次散射、多次散射补偿与 LUT 预计算。</li>
+            <li>带缓存的 CSM、LRU 页表管理的 Virtual Shadow Maps、Ray Query 光追阴影三条路径可切换。</li>
+            <li>可在同一场景下对比质量、显存占用和 GPU 耗时，讨论各方案适用场景。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="title">物理渲染：BRDF 与 Path Tracer</div>
+          <div class="meta">GGX / Kulla–Conty / Monte Carlo / Sobol / TLAS</div>
+          <ul>
+            <li>Kulla–Conty 多次散射能量补偿：Monte Carlo 生成 LUT，白炉测试验证能量守恒。</li>
+            <li>UE5 Path Tracer 首次弹射面光源可见性采样，与 Beauty 共享样本累积，按 1/√N 验证收敛。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="title">性能测量与工程化</div>
+          <div class="meta">Per-pass Timestamp / A/B Protocol / CI / Image Regression</div>
+          <ul>
+            <li>自建 per-pass timestamp profiler 与 A/B 测量协议，曝光 pass 从 6.07 ms 降到 0.33 ms（直方图 + LDS 归约）。</li>
+            <li>Catch2 单元测试 + 三平台 CI（ASan/UBSan、lavapipe 图像回归），防止优化引入画面错误。</li>
           </ul>
         </div>
         <div class="card">
           <div class="title">实时系统与 XR 工程经验</div>
-          <div class="meta">Tracking / Filtering / State Sync / Latency Handling</div>
+          <div class="meta">Tracking / Adaptive EMA / State Hold / Latency Handling</div>
           <ul>
-            <li>在 VR 项目中处理追踪抖动、输入丢失、状态同步和实时反馈连续性问题。</li>
+            <li>在 VR 项目中用自适应 EMA 与丢失时状态保持处理追踪抖动和输入丢失。</li>
             <li>作为引擎开发主线的补充，展示实时交互、性能稳定性和用户感知层面的工程判断。</li>
           </ul>
         </div>
@@ -872,17 +944,17 @@
           <div class="title">RIT · MAGIC Spell Studios｜VR Developer（Unreal VR）</div>
           <div class="meta">2025.08 – 2026.05</div>
           <ul>
-            <li>基于 Unreal Engine（C++ / Blueprint）开发研究型 VR 系统与沉浸式应用。</li>
-            <li>负责 VR 交互、角色/场景模块、系统集成与性能调优，处理 tracking 抖动、状态同步与实时反馈稳定性问题。</li>
+            <li>基于 Unreal Engine（C++ / Blueprint）开发研究型 VR 系统，负责交互、角色/场景模块与系统集成。</li>
+            <li>处理 tracking 抖动、状态同步与性能稳定性问题，支持多轮用户测试。</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="title">网易（广州）｜VR 开发实习生</div>
+          <div class="title">网易（广州）｜VR 开发实习生（客户端 / 交互与性能优化）</div>
           <div class="meta">2023.03 – 2023.08</div>
           <ul>
-            <li>基于 Unity + Meta Quest 开发 VR 交互系统与核心玩法 Demo，参与输入、交互反馈和场景逻辑实现。</li>
-            <li>使用 Unity Profiler 和运行时调试手段排查渲染、脚本与交互链路中的性能问题，在内部测试场景中降低明显掉帧并改善运行稳定性。</li>
+            <li>基于 Unity + Quest / PICO 开发 VR 核心玩法 Demo，负责交互系统、输入反馈与场景逻辑。</li>
+            <li>用 Unity Profiler 定位逐帧查询和临时对象导致的 GC 尖峰，改为事件驱动 + 引用缓存 + 容器复用，尖峰帧 CPU 耗时约 20 → 13–15 ms。</li>
           </ul>
         </div>
 
@@ -903,13 +975,13 @@
       <div class="card">
         <h3>王滋涵 · Zihan Wang</h3>
         <p>
-          计算机科学硕士，主要求职方向为引擎开发与图形渲染。项目经验覆盖 Vulkan / OpenGL 引擎原型、Render Graph、资源管理、GPU 调试与性能分析、UE5 渲染模块、VR 实时交互系统与 3DGS 风格迁移。作品集重点展示从底层图形 API、渲染管线组织到实时系统稳定性的工程能力。
+          计算机科学硕士，主要求职方向为引擎开发与图形渲染。核心项目是独立开发的约 6 万行 C++20 / Vulkan 1.3 实时渲染器（GPU-Driven、Render Graph、Async Compute、CSM / VSM / Ray Query 阴影），以及 UE 5.7.4 Path Tracer 源码修改；另有 OpenGL 引擎、UE5 BRDF、3DGS 风格迁移与 VR 实时交互系统等项目。作品集重点展示从底层图形 API、渲染管线组织到可复现性能测量的工程能力。
         </p>
         <ul>
           <li><b>目标岗位：</b>引擎开发工程师、图形渲染工程师、游戏客户端底层开发工程师、XR 实时系统工程师。</li>
-          <li><b>核心方向：</b>引擎开发、实时渲染、渲染管线、图形系统、实时 3D 应用。</li>
-          <li><b>核心技术：</b>C++、Vulkan、OpenGL、GLSL/HLSL、Unreal Engine 5、Unity、Meta SDK、OpenXR。</li>
-          <li><b>工程能力：</b>资源管理、Render Graph、渲染 Pass 组织、调试工具、GPU profiling、性能分析、实时系统稳定性。</li>
+          <li><b>核心方向：</b>引擎开发、实时渲染、GPU-Driven 管线、阴影与光照、离线 / 路径追踪渲染。</li>
+          <li><b>核心技术：</b>C++20、C#、Python、GLSL / HLSL；Vulkan 1.3、OpenGL；Unreal Engine 5（引擎源码修改、Movie Render Queue）、Unity。</li>
+          <li><b>工程能力：</b>Render Graph、Validation Layer（含 Sync Validation）、GPU Timestamp Profiling、CMake、GitHub Actions、Catch2、ASan/UBSan、clang-tidy。</li>
           <li><b>教育背景：</b>RIT 计算机科学硕士（2026 年毕业）；厦门大学数字媒体技术本科。</li>
         </ul>
         <div class="links">
